@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.brayantoyom.Controller.TipoProductoController">
+   <children>
+      <ImageView fitHeight="523.0" fitWidth="706.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/TIpo%20Producto.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tblTipoProducto" layoutX="60.0" layoutY="123.0" onMouseClicked="#seleccionarElementos" prefHeight="226.0" prefWidth="296.0">
+        <columns>
+          <TableColumn fx:id="colCodigoTipoProducto" prefWidth="159.0" text="codigoTipoProducto" />
+          <TableColumn fx:id="colDescripcionTipoProducto" prefWidth="136.0" text="descripcion" />
+        </columns>
+      </TableView>
+      <GridPane layoutX="382.0" layoutY="174.0" prefHeight="182.0" prefWidth="262.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#Eliminar" prefHeight="25.0" prefWidth="216.0" text="Eliminar" GridPane.rowIndex="1" />
+            <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#Editar" prefHeight="25.0" prefWidth="218.0" text="Editar" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="217.0" text="Reportes" GridPane.rowIndex="3" />
+            <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#Agregar" prefHeight="25.0" prefWidth="214.0" text="Agregar" />
+         </children>
+      </GridPane>
+      <Button fx:id="btnRegresar" layoutX="562.0" layoutY="149.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="74.0" text="Regresar" />
+      <Label layoutX="382.0" layoutY="36.0" prefHeight="25.0" prefWidth="122.0" text="codigoTipoProducto" textFill="WHITE" />
+      <Label layoutX="382.0" layoutY="79.0" prefHeight="25.0" prefWidth="122.0" text="descripcion" textFill="WHITE" />
+      <TextField fx:id="txtCodigoTipoProducto" layoutX="513.0" layoutY="36.0" prefHeight="14.0" prefWidth="122.0" />
+      <TextField fx:id="txtDescripcionProducto" layoutX="513.0" layoutY="79.0" prefHeight="14.0" prefWidth="122.0" />
+   </children>
+</AnchorPane>
