@@ -41,7 +41,7 @@
          <columns>
             <TableColumn fx:id="colCodigoC" prefWidth="110.0" text="codigoCliente" />
             <TableColumn fx:id="colNitC" prefWidth="110.0" text="NITCliente" />
-            <TableColumn fx:id="colNombreC" prefWidth="110.0" text="nombresCliente" />
+            <TableColumn fx:id="colNombreC" prefWidth="110.0" text="nombreCliente" />
             <TableColumn fx:id="colApellidoC" prefWidth="110.0" text="apellidosCliente" />
             <TableColumn fx:id="colDireccionC" prefWidth="110.0" text="direccionCliente" />
             <TableColumn fx:id="colTelefonoC" prefWidth="123.0" text="telefonoCliente" />
@@ -61,7 +61,7 @@
          <children>
             <Label prefHeight="25.0" prefWidth="89.0" text="codigoCliente" textFill="WHITE" />
             <Label prefHeight="25.0" prefWidth="90.0" text="NITCliente" textFill="WHITE" GridPane.rowIndex="1" />
-            <Label prefHeight="25.0" prefWidth="90.0" text="nombresCliente" textFill="WHITE" GridPane.rowIndex="2" />
+            <Label prefHeight="25.0" prefWidth="90.0" text="nombreCliente" textFill="WHITE" GridPane.rowIndex="2" />
             <TextField fx:id="txtCodigoC" prefHeight="24.0" prefWidth="198.0" GridPane.columnIndex="1" />
             <TextField fx:id="txtNombreC" prefHeight="24.0" prefWidth="198.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txtApellidoC" prefHeight="3.0" prefWidth="175.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

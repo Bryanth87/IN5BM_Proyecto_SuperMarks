@@ -1,38 +1,35 @@
 
 package org.brayantoyom.bean;
 
-import java.util.Date;
-
 public class Compras {
-    int numeroDocumento;
-    Date fechaDocumento;
-    String descripcion;
-    double totalDocumento;
+    private int numDocumento;
+    private String fechaDocumento;
+    private String descripcion;
+    private double totalDocumento;
 
-   public Compras(){
-    
+    public Compras() {
     }
 
-    public Compras(int numeroDocumento, Date fechaDocumento, String descripcion, double totalDocumento) {
-        this.numeroDocumento = numeroDocumento;
+    public Compras(int numDocumento, String fechaDocumento, String descripcion, double totalDocumento) {
+        this.numDocumento = numDocumento;
         this.fechaDocumento = fechaDocumento;
         this.descripcion = descripcion;
         this.totalDocumento = totalDocumento;
     }
 
-    public int getNumeroDocumento() {
-        return numeroDocumento;
+    public int getNumDocumento() {
+        return numDocumento;
     }
 
-    public void setNumeroDocumento(int numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
+    public void setNumDocumento(int numDocumento) {
+        this.numDocumento = numDocumento;
     }
 
-    public Date getFechaDocumento() {
+    public String getFechaDocumento() {
         return fechaDocumento;
     }
 
-    public void setFechaDocumento(Date fechaDocumento) {
+    public void setFechaDocumento(String fechaDocumento) {
         this.fechaDocumento = fechaDocumento;
     }
 
@@ -51,5 +48,6 @@ public class Compras {
     public void setTotalDocumento(double totalDocumento) {
         this.totalDocumento = totalDocumento;
     }
+ 
     
 }

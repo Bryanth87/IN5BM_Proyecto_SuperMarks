@@ -1,4 +1,3 @@
-
 package org.brayantoyom.Controller;
 
 import java.net.URL;
@@ -89,7 +88,6 @@ public class ClienteVistaController implements Initializable {
 
     @FXML
     private Button btnReportes;
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

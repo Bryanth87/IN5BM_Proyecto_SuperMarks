@@ -2,44 +2,39 @@
 package org.brayantoyom.bean;
 
 public class Proveedores {
-    int codigoProveedor;
-    String NITProveedor;
-    String nombresProveedor;
-    String apellidosProveedor;
-    String direccionProveedor;
-    String razonSocial;
-    String contactoPrincipal;
-    String paginaWeb;
-  
-    public Proveedores(){
-        
+    private int IDProveedor;
+    private String nombresProveedor;
+    private String apellidosProveedor;
+    private String NITProveedor;
+    private String telefonoProveedor;
+    private String direccionProveedor;
+    private String correoProveedor;
+    private String razonSocial;
+    private String contactoPrincipal;
+    private String paginaWeb;
+
+    public Proveedores() {
     }
 
-    public Proveedores(int codigoProveedor, String NITProveedor, String nombresProveedor, String apellidosProveedor, String direccionProveedor, String razonSocial, String contactoPrincipal, String paginaWeb) {
-        this.codigoProveedor = codigoProveedor;
-        this.NITProveedor = NITProveedor;
+    public Proveedores(int IDProveedor, String nombresProveedor, String apellidosProveedor, String NITProveedor, String telefonoProveedor, String direccionProveedor, String correoProveedor, String razonSocial, String contactoPrincipal, String paginaWeb) {
+        this.IDProveedor = IDProveedor;
         this.nombresProveedor = nombresProveedor;
         this.apellidosProveedor = apellidosProveedor;
+        this.NITProveedor = NITProveedor;
+        this.telefonoProveedor = telefonoProveedor;
         this.direccionProveedor = direccionProveedor;
+        this.correoProveedor = correoProveedor;
         this.razonSocial = razonSocial;
         this.contactoPrincipal = contactoPrincipal;
         this.paginaWeb = paginaWeb;
     }
 
-    public int getCodigoProveedor() {
-        return codigoProveedor;
+    public int getIDProveedor() {
+        return IDProveedor;
     }
 
-    public void setCodigoProveedor(int codigoProveedor) {
-        this.codigoProveedor = codigoProveedor;
-    }
-
-    public String getNITProveedor() {
-        return NITProveedor;
-    }
-
-    public void setNITProveedor(String NITProveedor) {
-        this.NITProveedor = NITProveedor;
+    public void setIDProveedor(int IDProveedor) {
+        this.IDProveedor = IDProveedor;
     }
 
     public String getNombresProveedor() {
@@ -58,12 +53,36 @@ public class Proveedores {
         this.apellidosProveedor = apellidosProveedor;
     }
 
+    public String getNITProveedor() {
+        return NITProveedor;
+    }
+
+    public void setNITProveedor(String NITProveedor) {
+        this.NITProveedor = NITProveedor;
+    }
+
+    public String getTelefonoProveedor() {
+        return telefonoProveedor;
+    }
+
+    public void setTelefonoProveedor(String telefonoProveedor) {
+        this.telefonoProveedor = telefonoProveedor;
+    }
+
     public String getDireccionProveedor() {
         return direccionProveedor;
     }
 
     public void setDireccionProveedor(String direccionProveedor) {
         this.direccionProveedor = direccionProveedor;
+    }
+
+    public String getCorreoProveedor() {
+        return correoProveedor;
+    }
+
+    public void setCorreoProveedor(String correoProveedor) {
+        this.correoProveedor = correoProveedor;
     }
 
     public String getRazonSocial() {
@@ -88,9 +107,5 @@ public class Proveedores {
 
     public void setPaginaWeb(String paginaWeb) {
         this.paginaWeb = paginaWeb;
-    }
-    
-    
+    } 
 }
-
-  

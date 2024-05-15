@@ -1,283 +1,550 @@
 
 set global time_zone = '-6:00';
-
+drop database if exists DBSuperMarket;
 create database DBSuperMarket;
 use DBSuperMarket;
 
 create table Clientes (
-    codigoCliente int primary key,
-    NITCliente varchar(10),
-    nombresCliente varchar(50),
-    apellidosCliente varchar(50),
-    direccionCliente varchar(150),
-    telefonoCliente varchar(45),
-    correoCliente varchar(45)
+
+	IDClientes int primary key,
+    nombreClientes varchar (50),
+    apellidosClientes varchar (50),
+	NITClientes varchar (10),
+	telefonoClientes varchar (45),
+	direccionClientes varchar(150),
+	correoClientes varchar (45)
+
+);
+ -- ----------------------------------------------
+ 
+create table CargoEmpleado (
+
+	IDCargoEmpleado int primary key,
+    nombreCargo varchar (45),
+    descripcionCargo varchar (45)
+    
 );
 
-create table CargoEmpleado (
-    codigoCargoEmpleado int primary key,
-    nombresCargo varchar(45),
-    descripcionCargo varchar(45)
-);
+-- ----------------------------------------------
 
 create table TipoProducto(
-    codigoTipoProducto int primary key,
-    descripcion varchar(45)
+
+	IDTipoProducto int primary key,
+    descripcion varchar (45)
+    
 );
 
+-- ---------------------------------------------
+
 create table Compras(
-    numeroDocumento int primary key,
+
+    numDocumento int primary key,
     fechaDocumento date,
     descripcion varchar(60),
     totalDocumento decimal(20,2)
+    
 );
+
+-- ----------------------------------------------
+
+create table Proveedores(
+
+	IDProveedor int primary key,
+    nombresProveedor varchar(50),
+    apellidosProveedor varchar (50),
+    NITProveedor varchar(10),
+    telefonoProveedor varchar (45),
+    direccionProveedor varchar (150),
+    correoProveedor varchar(45),
+    razonSocial varchar (45),
+    contactoPrincipal varchar (100),
+    paginaWeb varchar(45)
+    
+);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
 
 delimiter $$
 
-create procedure sp_agregarCliente(in codeCli int, in nitCli varchar(10), in nombresCli varchar(50), in apellidosCli varchar(50),in direcCli varchar(150), in telefonoCli varchar(45), in correoCli varchar(45))
+create procedure sp_AgregarClientes(in IDClientes int,in nombreClientes varchar(50), in apellidosClientes varchar(50), in NITClientes varchar(10),in telefonoClientes varchar(45), in direccionClientes varchar(150), in correoClientes varchar(45)
+)
 begin
-    insert into Clientes (codigoCliente, NITCliente, nombresCliente, apellidosCliente, direccionCliente, telefonoCliente, correoCliente)
-    values (codeCli, nitCli, nombresCli, apellidosCli, direcCli, telefonoCli, correoCli);
+    insert into Clientes (IDClientes, nombreClientes, apellidosClientes, NITClientes, telefonoClientes, direccionClientes, correoClientes)
+    values (IDClientes, nombreClientes, apellidosClientes, NITClientes, telefonoClientes, direccionClientes, correoClientes);
 end$$
 
 delimiter ;
 
-call sp_agregarCliente(1, '84851', 'Estuardo', 'Morales', 'Zona 8', '78945', 'esmorales@gmail.com'); 
+-- ---------------------------------------------------------------------------------------------------------------------------
 
+call sp_AgregarClientes(1, 'Enrique', 'Arriaga', '84791', '47951', 'Zona 1', 'earriaga@gmail.com');
+
+-- ---------------------------------------------------------------------------------------------------------------------------
 
 delimiter $$
 
-create procedure sp_listarCliente()
-begin 
-    select
-        codigoCliente,
-        NITCliente,
-        apellidosCliente,
-        nombresCliente,
-        direccionCliente,
-        telefonoCliente,
-        correoCliente
-    from Clientes;
+create procedure sp_ListarClientes()
+begin
+    select IDClientes, nombreClientes, apellidosClientes, NITClientes, telefonoClientes, direccionClientes, correoClientes from Clientes;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_ListarClientes();
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_BuscarClientes(in _IDClientes int)
+begin
+    select * from Clientes where IDClientes = _IDClientes;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_BuscarClientes(2);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_ActualizarClientes(
+    in _IDClientes int, in nombreClientes varchar(50), in apellidosClientes varchar(50),
+    in NITClientes varchar(10), in telefonoClientes varchar(150), in direccionClientes varchar(150),
+    in correoClientes varchar(45))
+begin
+    update Clientes
+    set
+        NITClientes = NITClientes,
+        nombreClientes = nombreClientes,
+        apellidosClientes = apellidosClientes,
+        direccionClientes = direccionClientes,
+        telefonoClientes = telefonoClientes,
+        correoClientes = correoClientes
+    where
+        IDClientes = _IDClientes;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_ActualizarClientes(1, 'Junior', 'Hernandez', '478423', '8794', 'Zona 9', 'jhernandez@gmail.com');
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_EliminarClientes(in _IDClientes int)
+begin
+    delete from Clientes where IDClientes = _IDClientes;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_EliminarClientes(1);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_AgregarCargoEmpleado(
+    in IDCargoEmpleado int, in nombreCargo varchar(45), in descripcionCargo varchar(45)
+)
+begin
+    insert into CargoEmpleado (IDCargoEmpleado,nombreCargo, descripcionCargo)
+    values (IDCargoEmpleado,nombreCargo, descripcionCargo);
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_AgregarCargoEmpleado(1, 'Gerente', 'Es de ventas');
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_ListarCargoEmpleado()
+begin
+    select IDCargoEmpleado, nombreCargo,descripcionCargo from CargoEmpleado;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_ListarCargoEmpleado();
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_BuscarCargoEmpleado(in _IDCargoEmpleado int)
+begin
+    select * from CargoEmpleado where IDCargoEmpleado = _IDCargoEmpleado;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_BuscarCargoEmpleado(2);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_ActualizarCargoEmpleado(
+    in _IDCargoEmpleado int, in nombreCargo varchar(45), in descripcionCargo varchar(45)
+)
+begin
+    update CargoEmpleado
+    set
+        nombreCargo = nombreCargo,
+        descripcionCargo = descripcionCargo
+    where
+        IDCargoEmpleado = _IDCargoEmpleado;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_ActualizarCargoEmpleado(2, 'Suplente', 'Encargado');
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_EliminarCargoEmpleado(in _IDCargoEmpleado int)
+begin
+    delete from CargoEmpleado where IDCargoEmpleado = _IDCargoEmpleado;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_EliminarCargoEmpleado(1);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_AgregarTipoProducto(
+    in IDTipoProducto int, in descripcion varchar(45)
+)
+begin
+    insert into TipoProducto (IDTipoProducto,descripcion)
+    values (IDTipoProducto,descripcion);
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_AgregarTipoProducto(1, 'Computadoras de Corea del Sur');
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_ListarTipoProducto()
+begin
+    select IDTipoProducto, descripcion from TipoProducto;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_ListarTipoProducto();
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_BuscarTipoProducto(in _IDTipoProducto int)
+begin
+    select * from TipoProducto where IDTipoProducto = _IDTipoProducto;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_BuscarTipoProducto(2);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_ActualizarTipoProducto(
+    in _IDTipoProducto int, in descripcion varchar(45)
+)
+begin
+    update TipoProducto
+    set
+        descripcion = descripcion
+    where
+        IDTipoProducto = _IDTipoProducto;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_ActualizarTipoProducto(2, 'Carros de Japón');
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_EliminarTipoProducto(in _IDTipoProducto int)
+begin
+    delete from TipoProducto where IDTipoProducto = _IDTipoProducto;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_EliminarTipoProducto(1);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_AgregarCompra(
+	in numDocumento int,
+    in fechaDocumento date,
+    in descripcion varchar(60),
+    in totalDocumento decimal(20,2)
+)
+begin
+    insert into Compras (numDocumento,fechaDocumento, descripcion, totalDocumento)
+    values (numDocumento,fechaDocumento, descripcion, totalDocumento);
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_AgregarCompra(1, '2019-07-08', 'Compra de herramientas', 450.00);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_ListarCompras()
+begin
+    select numDocumento,fechaDocumento,descripcion,totalDocumento from Compras;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_ListarCompras();
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_BuscarCompra(in _numDocumento int)
+begin
+    select * from Compras where numDocumento = _numDocumento;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_BuscarCompra(2);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_ActualizarCompra(
+    in _numDocumento int,
+    in fechaDocumento date,
+    in descripcion varchar(60),
+    in totalDocumento decimal(20,2)
+)
+begin
+    update Compras
+    set
+        fechaDocumento = fechaDocumento,
+        descripcion = descripcion,
+        totalDocumento = totalDocumento
+    where
+        numDocumento = _numDocumento;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_ActualizarCompra(2, '2085-06-08', 'Compra de imanes', 950.00);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_EliminarCompra(in _numDocumento int)
+begin
+    delete from Compras where numDocumento = _numDocumento;
+end$$
+
+delimiter ;
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_EliminarCompra(3);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_AgregarProveedor (
+    in IDProveedor int,
+    in nombresProveedor varchar(50),
+    in apellidosProveedor varchar(50),
+    in NITProveedor varchar(10),
+    in telefonoProveedor varchar(45),
+    in direccionProveedor varchar(150),
+    in correoProveedor varchar(45),
+    in razonSocial varchar(45),
+    in contactoPrincipal varchar(100),
+    in paginaWeb varchar(45))
+begin
+    insert into Proveedores (IDProveedor, nombresProveedor, apellidosProveedor, NITProveedor, telefonoProveedor, direccionProveedor, correoProveedor, razonSocial, contactoPrincipal, paginaWeb)
+    values (IDProveedor, nombresProveedor, apellidosProveedor, NITProveedor, telefonoProveedor, direccionProveedor, correoProveedor, razonSocial, contactoPrincipal, paginaWeb);
 end $$
 
 delimiter ;
 
-call sp_listarCliente();
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_AgregarProveedor(1, 'Iman de calidad', 'S.A.', '84897', '65471', 'Zona 10, calle 1', 'iman@gmail.com' , 'Iman de calidad', 'Eduardo Melina', 'www.iman.com');
+
+-- ---------------------------------------------------------------------------------------------------------------------------
 
 delimiter $$
 
-create procedure sp_buscarCliente(in nitCli varchar(10))
+create procedure sp_ListarProveedores()
 begin
     select
-        codigoCliente,
-        NITCliente,
-        apellidosCliente,
-        nombresCliente,
-        direccionCliente,
-        telefonoCliente,
-        correoCliente
-    from Clientes where NITCliente = nitCli;
-end$$
+        IDProveedor,
+        nombresProveedor,
+        apellidosProveedor,
+        NITProveedor,
+        telefonoProveedor,
+        direccionProveedor,
+        correoProveedor,
+        razonSocial,
+        contactoPrincipal,
+        paginaWeb
+    from
+        Proveedores;
+end $$
 
 delimiter ;
 
-delimiter $$
+-- ---------------------------------------------------------------------------------------------------------------------------
 
-create procedure sp_actualizarCliente(in codeCli int, in nitCli varchar(10), in nombresCli varchar(50), in apellidosCli varchar(50), in direcCli varchar(150), in telefonoCli varchar(45), in correoCli varchar(45))
-begin
-    update Clientes
-    set
-        NITCliente = nitCli,
-        nombresCliente = nombresCli,
-        apellidosCliente = apellidosCli,
-        direccionCliente = direcCli,
-        telefonoCliente = telefonoCli,
-        correoCliente = correoCli
-    where
-        codigoCliente = codeCli;
-end$$
+call sp_ListarProveedores();
 
-delimiter ;
+-- ---------------------------------------------------------------------------------------------------------------------------
 
 delimiter $$
 
-create procedure sp_agregarCargoEmpleado(in codeCargoEmpleado int, in nombCargo varchar(45), in descripCargo varchar(45))
-begin
-    insert into CargoEmpleado (codigoCargoEmpleado, nombresCargo, descripcionCargo)
-    values (codeCargoEmpleado, nombCargo, descripCargo);
-end$$
-
-delimiter ;
-
-call sp_eliminarCliente(5);
-
-delimiter $$
-
-create procedure sp_agregarCargoEmpleado(in codeCargoEmpleado int, in nombCargo varchar(45), in descripCargo varchar(45))
-begin
-    insert into CargoEmpleado (codigoCargoEmpleado, nombresCargo, descripcionCargo)
-    values (codeCargoEmpleado, nombCargo, descripCargo);
-end$$
-
-delimiter ;
-
-call sp_agregarCargoEmpleado(1, 'Gerente', 'Responsable');
-
-select * from CargoEmpleado;
-select * from Clientes;
-
-
-delimiter $$
-
-create procedure sp_listarCargoEmpleado()
-Begin
-    Select
-        codigoCargoEmpleado,
-        nombresCargo,
-        descripcionCargo
-    From CargoEmpleado;
-End$$
-
-delimiter ;
-
-delimiter $$
-
-create procedure sp_buscarCargoEmpleado(in codeCargoEmpleado int)
-begin
-    select codigoCargoEmpleado, nombresCargo, descripcionCargo from CargoEmpleado where codigoCargoEmpleado = codeCargoEmpleado;
-end$$
-
-delimiter ;
-
-delimiter $$
-
-create procedure sp_actualizarCargoEmpleado(in codeCargoEmpleado int, in nombCargo varchar(45), in descripCargo varchar(45))
-begin
-    update CargoEmpleado
-    set
-        nombresCargo = nombCargo,
-        descripcionCargo = descripCargo
-    where
-        codigoCargoEmpleado = codeCargoEmpleado;
-end$$
-
-delimiter ;
-
-delimiter $$
-
-create procedure sp_eliminarCargoEmpleado(in codeCargoEmpleado int)
-begin
-    delete from CargoEmpleado where codigoCargoEmpleado = codeCargoEmpleado;
-end$$
-
-delimiter ;
-
-delimiter $$
-
-create procedure sp_agregarTipoProducto(in codeProducto int, in descriProduc varchar(45))
-begin
-    insert into TipoProducto (codigoTipoProducto, descripcion)
-    values (codeProducto, descriProduc);
-end$$
-
-delimiter ;
-
-
-call sp_agregarTipoProducto(1, 'Alimento');
-
-select * from TipoProducto;
-
-delimiter $$
-
-create procedure sp_listarTipoProducto()
+create procedure sp_BuscarProveedor (in _IDProveedor int)
 begin
     select
-        codigoTipoProducto,
-        descripcion
-    from TipoProducto;
-end$$
-
-delimiter ;
-
-delimiter $$
-
-create procedure sp_buscarTipoProducto(in codeTipo int)
-begin
-    select * from TipoProducto where codigoTipoProducto = codeTipo;
-end$$
-
-delimiter ;
-
-delimiter $$
-
-create procedure sp_actualizarTipoProducto(in codeTipo int, in descriProduc varchar(45))
-begin
-    update TipoProducto
-    set
-        descripcion = descriProduc
+        IDProveedor,
+        nombresProveedor,
+        apellidosProveedor,
+        NITProveedor,
+        telefonoProveedor,
+        direccionProveedor,
+        correoProveedor,
+        razonSocial,
+        contactoPrincipal,
+        paginaWeb
+    from
+        Proveedores
     where
-        codigoTipoProducto = codeTipo;
-end$$
+        IDProveedor = _IDProveedor;
+end $$
 
 delimiter ;
 
+-- ---------------------------------------------------------------------------------------------------------------------------
+
+call sp_BuscarProveedor(1);
+
+-- ---------------------------------------------------------------------------------------------------------------------------
+
 delimiter $$
 
-create procedure sp_eliminarTipoProducto(in codeTipo int)
+create procedure sp_EliminarProveedor (in _IDProveedor int)
 begin
-    delete from TipoProducto where codigoTipoProducto = codeTipo;
-end$$
+    delete from Proveedores
+    where IDProveedor = _IDProveedor;
+end $$
 
 delimiter ;
 
-delimiter $$
+-- ---------------------------------------------------------------------------------------------------------------------------
 
-create procedure sp_agregarCompra(in fechaDocument date, in descriProduc varchar(60), in totalDocument decimal(20,2))
-begin
-    insert into Compras (fechaDocumento, descripcion, totalDocumento)
-    values (fechaDocument, descriProduc, totalDocument);
-end$$
+call sp_EliminarProveedor(1);
 
-delimiter ;
+-- ---------------------------------------------------------------------------------------------------------------------------
 
 delimiter $$
 
-create procedure sp_listarCompras()
+create procedure sp_ActualizarProveedores(
+    in _IDProveedor int,
+    in nombresProveedor varchar(50),
+    in apellidosProveedor varchar(50),
+    in NITProveedor varchar(10),
+    in telefonoProveedor varchar(45),
+    in direccionProveedor varchar(150),
+    in correoProveedor varchar(45),
+    in razonSocial varchar(45),
+    in contactoPrincipal varchar(100),
+    in paginaWeb varchar(45))
 begin
-    select * from Compras;
-end$$
-
-delimiter ;
-
-delimiter $$
-
-create procedure sp_buscarCompra(in numDocument int)
-begin
-    select * from Compras where numeroDocumento = numDocument;
-end$$
-
-delimiter ;
-
-delimiter $$
-
-create procedure sp_actualizarCompra(in numDocument int, in fechaDocument date, in descriProduc varchar(60), in totalDocument decimal(20,2))
-begin
-    update Compras
+    update Proveedores
     set
-        fechaDocumento = fechaDocument,
-        descripcion = descriProduc,
-        totalDocumento = totalDocument
+        nombresProveedor = nombresProveedor,
+        apellidosProveedor = apellidosProveedor,
+        NITProveedor = NITProveedor,
+        telefonoProveedor = telefonoProveedor,
+        direccionProveedor = direccionProveedor,
+        correoProveedor = correoProveedor,
+        razonSocial = razonSocial,
+        contactoPrincipal = contactoPrincipal,
+        paginaWeb = paginaWeb
     where
-        numeroDocumento = numDocument;
-end$$
+        IDProveedor = _IDProveedor;
+end $$
 
 delimiter ;
 
-delimiter $$
+-- ---------------------------------------------------------------------------------------------------------------------------
 
-create procedure sp_eliminarCompra(in numDocument int)
-begin
-    delete from Compras where numeroDocumento = numDocument;
-end$$
-
-delimiter ;
+ call sp_ActualizarProveedores(2, 'Esteban', 'Molina', '487158', '35471', 'Zona 12', 'Freegol@gmail.com' , 'Programa x', 'Si bro' , 'www.Freegol.com');
+ 
+ -- ---------------------------------------------------------------------------------------------------------------------------

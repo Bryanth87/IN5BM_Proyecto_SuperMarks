@@ -1,4 +1,3 @@
-
 package org.brayantoyom.system;
 
 import java.io.InputStream;
@@ -16,13 +15,16 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import org.brayantoyom.Controller.CargoEmpleadoController;
+import org.brayantoyom.Controller.ProveedoresController;
 import org.brayantoyom.Controller.TipoProductoController;
+import org.brayantoyom.Controller.ComprasController;
 
 public class Main extends Application {
-    
+
     private Stage escenarioPrincipal;
     private Scene escena;
     private final String URLVIEW = "/org/brayantoyom/View/";
+
     @Override
     public void start(Stage escenarioPrincipal) throws Exception {
         this.escenarioPrincipal = escenarioPrincipal;
@@ -31,77 +33,96 @@ public class Main extends Application {
         escenarioPrincipal.show();
         FXMLLoader.load(getClass().getResource("/org/brayantoyom/View/ViewMenuPrincipal.fxml"));
 
-         
     }
-    
-    public Initializable cambiarEscena (String fxmlname, int width, int height) throws Exception{
+
+    public Initializable cambiarEscena(String fxmlname, int width, int height) throws Exception {
         Initializable resultado;
-        FXMLLoader loader =new FXMLLoader();
-        
-        
-        InputStream file = Main.class.getResourceAsStream( URLVIEW + fxmlname);
-         loader.setBuilderFactory(new JavaFXBuilderFactory());
-         loader.setLocation(Main.class.getResource(URLVIEW + fxmlname));
-         
-        escena = new Scene((AnchorPane)loader.load(file), width, height);
+        FXMLLoader loader = new FXMLLoader();
+
+        InputStream file = Main.class.getResourceAsStream(URLVIEW + fxmlname);
+        loader.setBuilderFactory(new JavaFXBuilderFactory());
+        loader.setLocation(Main.class.getResource(URLVIEW + fxmlname));
+
+        escena = new Scene((AnchorPane) loader.load(file), width, height);
         escenarioPrincipal.setScene(escena);
         escenarioPrincipal.sizeToScene();
-        
-        resultado = (Initializable)loader.getController();
-        
+
+        resultado = (Initializable) loader.getController();
+
         return resultado;
     }
-    
-    public void menuPrincipalView(){
-        try{
-            MenuPrincipalController menuPrincipalView = (MenuPrincipalController)cambiarEscena("ViewMenuPrincipal.fxml", 828, 517);
+
+    public void menuPrincipalView() {
+        try {
+            MenuPrincipalController menuPrincipalView = (MenuPrincipalController) cambiarEscena("ViewMenuPrincipal.fxml", 828, 517);
             menuPrincipalView.setEscenarioPrincipal(this);
-            
-        }catch(Exception e){
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void menuClienteView(){
-        try{
-            ClienteVistaController menuClienteView = (ClienteVistaController)cambiarEscena("ViewClientes.fxml", 1138, 679);
+
+    public void menuClienteView() {
+        try {
+            ClienteVistaController menuClienteView = (ClienteVistaController) cambiarEscena("ViewClientes.fxml", 1138, 679);
             menuClienteView.setEscenarioPrincipal(this);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void menuCargoEmpleadoView(){
-        try{
-            CargoEmpleadoController menuCargoEmpleadoView = (CargoEmpleadoController)cambiarEscena("ViewCargos.fxml", 893, 550);
+
+    public void menuCargoEmpleadoView() {
+        try {
+            CargoEmpleadoController menuCargoEmpleadoView = (CargoEmpleadoController) cambiarEscena("ViewCargos.fxml", 893, 550);
             menuCargoEmpleadoView.setEscenarioPrincipal(this);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-    
-     public void menuTipoProductoView(){
-        try{
-            TipoProductoController menuTipoProductoView = (TipoProductoController)cambiarEscena("ViewTipoProducto.fxml", 706, 503);
+
+    public void menuTipoProductoView() {
+        try {
+            TipoProductoController menuTipoProductoView = (TipoProductoController) cambiarEscena("ViewTipoProducto.fxml", 706, 386);
             menuTipoProductoView.setEscenarioPrincipal(this);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-    
-     public void menuProgramadorView(){
-        try{
-            ProgramadorController programadorView = (ProgramadorController)cambiarEscena("ViewProgramador.fxml", 886, 464);
+
+    public void menuProgramadorView() {
+        try {
+            ProgramadorController programadorView = (ProgramadorController) cambiarEscena("ViewProgramador.fxml", 886, 464);
             programadorView.setEscenarioPrincipal(this);
-            
-        }catch(Exception e){
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
     
+        public void menuProveedoresView() {
+        try {
+            ProveedoresController menuProveedoresView = (ProveedoresController) cambiarEscena(".fxml", 886, 464);
+            menuProveedoresView.setEscenarioPrincipal(this);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+        
+        public void menuCompras() {
+        try {
+            ComprasController menuComprasView = (ComprasController) cambiarEscena(".fxml", 975, 540);
+            menuComprasView.setEscenarioPrincipal(this);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }    
+    }
+        
+        
     public static void main(String[] args) {
         launch(args);
     }
-    
-}
 
+}
