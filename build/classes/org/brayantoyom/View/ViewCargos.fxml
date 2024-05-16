@@ -37,7 +37,7 @@
       </Label>
       <TextField fx:id="txtCodigoCargoEmpleado" layoutX="584.0" layoutY="67.0" />
       <TextField fx:id="txtNombresCargo" layoutX="584.0" layoutY="104.0" />
-      <TextField fx:id="txtdescripcionCargo" layoutX="584.0" layoutY="141.0" />
+      <TextField fx:id="txtDescripcionCargo" layoutX="584.0" layoutY="141.0" />
       <TableView fx:id="tblCargoEmpleado" layoutX="104.0" layoutY="176.0" onMouseClicked="#seleccionarElementos" prefHeight="288.0" prefWidth="432.0">
         <columns>
           <TableColumn fx:id="colCodigoCargoEmpleado" prefWidth="139.0" text="codigoCargoEmpleado" />
@@ -57,9 +57,9 @@
         </rowConstraints>
          <children>
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="208.0" text="Agregar" textAlignment="CENTER" />
-            <Button fx:id="btnEliminarCargoEmpleado" mnemonicParsing="false" onAction="#EliminarCargoEmpleado" prefHeight="25.0" prefWidth="208.0" text="Eliminar" textAlignment="CENTER" GridPane.rowIndex="1" />
-            <Button fx:id="btnEditarCargoEmpleado" mnemonicParsing="false" onAction="#EditarCargoEmpleado" prefHeight="25.0" prefWidth="208.0" text="Editar" textAlignment="CENTER" GridPane.rowIndex="2" />
-            <Button fx:id="btnAgregarCargoEmpleado" mnemonicParsing="false" onAction="#AgregarCargoEmpleado" prefHeight="25.0" prefWidth="208.0" text="Agregar" textAlignment="CENTER" />
+            <Button fx:id="btnEliminarCargoEmpleado" mnemonicParsing="false" onAction="#Eliminar" prefHeight="25.0" prefWidth="208.0" text="Eliminar" textAlignment="CENTER" GridPane.rowIndex="1" />
+            <Button fx:id="btnEditarCargoEmpleado" mnemonicParsing="false" onAction="#Editar" prefHeight="25.0" prefWidth="208.0" text="Editar" textAlignment="CENTER" GridPane.rowIndex="2" />
+            <Button fx:id="btnAgregarCargoEmpleado" mnemonicParsing="false" onAction="#Agregar" prefHeight="25.0" prefWidth="208.0" text="Agregar" textAlignment="CENTER" />
             <Button fx:id="btnReportes" mnemonicParsing="false" prefHeight="25.0" prefWidth="208.0" text="Reporte" textAlignment="CENTER" GridPane.rowIndex="3" />
          </children>
       </GridPane>

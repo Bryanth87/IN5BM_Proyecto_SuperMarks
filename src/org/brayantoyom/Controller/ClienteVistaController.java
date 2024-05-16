@@ -120,12 +120,12 @@ public class ClienteVistaController implements Initializable {
     public ObservableList<Clientes> getClientes() {
         ArrayList<Clientes> lista = new ArrayList<>();
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarCliente()}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarClientes()}");
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
                 lista.add(new Clientes(resultado.getInt("codigoCliente"),
                         resultado.getString("NITCliente"),
-                        resultado.getString("nombresCliente"),
+                        resultado.getString("nombresClientes"),
                         resultado.getString("apellidosCliente"),
                         resultado.getString("direccionCliente"),
                         resultado.getString("telefonoCliente"),
@@ -171,7 +171,7 @@ public class ClienteVistaController implements Initializable {
         registro.setTelefonoCliente(txtTelefonoC.getText());
         registro.setCorreoCliente(txtCorreoC.getText());
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarCliente(?, ?, ?, ?, ?, ?, ?)}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarClientes(?, ?, ?, ?, ?, ?, ?)}");
             procedimiento.setInt(1, registro.getCodigoCliente());
             procedimiento.setString(2, registro.getNITCliente());
             procedimiento.setString(3, registro.getApellidosCliente());
@@ -204,7 +204,7 @@ public class ClienteVistaController implements Initializable {
                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (respuesta == JOptionPane.YES_NO_OPTION) {
                         try {
-                            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_eliminarCliente(?)}");
+                            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_eliminarClientes(?)}");
                             procedimiento.setInt(1, ((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getCodigoCliente());
                             procedimiento.execute();
                             listaClientes.remove(tblClientes.getSelectionModel().getSelectedItem());
@@ -256,7 +256,7 @@ public class ClienteVistaController implements Initializable {
 
         }
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarCliente(?, ?, ?, ?, ?, ?, ?)}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarClientes(?, ?, ?, ?, ?, ?, ?)}");
             Clientes registro = (Clientes) tblClientes.getSelectionModel().getSelectedItem();
             registro.setCodigoCliente(Integer.parseInt(txtCodigoC.getText()));
             registro.setNITCliente(txtNitC.getText());

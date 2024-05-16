@@ -2,7 +2,7 @@
 package org.brayantoyom.bean;
 
 public class Proveedores {
-    private int IDProveedor;
+    private int codigoProveedor;
     private String nombresProveedor;
     private String apellidosProveedor;
     private String NITProveedor;
@@ -17,7 +17,7 @@ public class Proveedores {
     }
 
     public Proveedores(int IDProveedor, String nombresProveedor, String apellidosProveedor, String NITProveedor, String telefonoProveedor, String direccionProveedor, String correoProveedor, String razonSocial, String contactoPrincipal, String paginaWeb) {
-        this.IDProveedor = IDProveedor;
+        this.codigoProveedor = codigoProveedor;
         this.nombresProveedor = nombresProveedor;
         this.apellidosProveedor = apellidosProveedor;
         this.NITProveedor = NITProveedor;
@@ -29,12 +29,12 @@ public class Proveedores {
         this.paginaWeb = paginaWeb;
     }
 
-    public int getIDProveedor() {
-        return IDProveedor;
+    public int getCodigoProveedor() {
+        return codigoProveedor;
     }
 
-    public void setIDProveedor(int IDProveedor) {
-        this.IDProveedor = IDProveedor;
+    public void setCodigoProveedor(int codigoProveedor) {
+        this.codigoProveedor = codigoProveedor;
     }
 
     public String getNombresProveedor() {
@@ -107,5 +107,6 @@ public class Proveedores {
 
     public void setPaginaWeb(String paginaWeb) {
         this.paginaWeb = paginaWeb;
-    } 
+    }
+
 }

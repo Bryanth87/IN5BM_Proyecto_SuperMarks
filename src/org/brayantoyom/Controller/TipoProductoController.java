@@ -67,13 +67,13 @@ public class TipoProductoController implements Initializable {
     
     public void cargarDatos() {
         tblTipoProducto.setItems(getProductos());
-        colCodigoTipoProducto.setCellValueFactory(new PropertyValueFactory<TipoProducto, Integer>("IDTipoProducto"));
+        colCodigoTipoProducto.setCellValueFactory(new PropertyValueFactory<TipoProducto, Integer>("codigoTipoProducto"));
         colDescripcionTipoProducto.setCellValueFactory(new PropertyValueFactory<TipoProducto, Integer>("descripcion"));
     }
     
     public void seleccionarElementos() {
-        txtCodigoTipoProducto.setText(String.valueOf(((TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem()).getIDTipoProducto()));
-        txtDescripcionProducto.setText((((TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem()).getDescripcion()));
+        colCodigoTipoProducto.setText(String.valueOf(((TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto()));
+        colDescripcionTipoProducto.setText((((TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem()).getDescripcion()));
     }
     
     public ObservableList<TipoProducto> getProductos() {
@@ -82,7 +82,7 @@ public class TipoProductoController implements Initializable {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_ListarTipoProducto()}");
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
-                lista.add(new TipoProducto(resultado.getInt("IDTipoProducto"),
+                lista.add(new TipoProducto(resultado.getInt("codigoTipoProducto"),
                         resultado.getString("descripcion")
                 ));
             }
@@ -134,7 +134,7 @@ public class TipoProductoController implements Initializable {
                     if (respuesta == JOptionPane.YES_NO_OPTION) {
                         try {
                             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_EliminarTipoProducto(?)}");
-                            procedimiento.setInt(1, ((TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem()).getIDTipoProducto());
+                            procedimiento.setInt(1, ((TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto());
                             procedimiento.execute();
                             listaTipoProducto.remove(tblTipoProducto.getSelectionModel().getSelectedItem());
                             limpiarControles();
@@ -164,7 +164,7 @@ public class TipoProductoController implements Initializable {
                 }
                 break;
             case ACTUALIZAR:
-                Actualizar();
+                actualizar();
                 btnEditar.setText("Editar");
                 btnReportes.setText("Reporte");
                 btnAgregar.setDisable(false);
@@ -194,11 +194,11 @@ public class TipoProductoController implements Initializable {
     
     public void Guardar() {
         TipoProducto registro = new TipoProducto();
-        registro.setIDTipoProducto(Integer.parseInt(txtCodigoTipoProducto.getText()));
+        registro.setCodigoTipoProducto(Integer.parseInt(txtCodigoTipoProducto.getText()));
         registro.setDescripcion(txtDescripcionProducto.getText());
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_AgregarTipoProducto(?, ?)}");
-            procedimiento.setInt(1, registro.getIDTipoProducto());
+            procedimiento.setInt(1, registro.getCodigoTipoProducto());
             procedimiento.setString(2, registro.getDescripcion());
             procedimiento.execute();
             listaTipoProducto.add(registro);
@@ -207,12 +207,12 @@ public class TipoProductoController implements Initializable {
         }
     }
     
-    public void Actualizar() {
+    public void actualizar() {
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_ActualizarTipoProducto(?,?)}");
             TipoProducto registro = (TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem();
             registro.setDescripcion(txtDescripcionProducto.getText());
-            procedimiento.setInt(1, registro.getIDTipoProducto());
+            procedimiento.setInt(1, registro.getCodigoTipoProducto());
             procedimiento.setString(2, registro.getDescripcion());
             procedimiento.execute();
         } catch (Exception e) {

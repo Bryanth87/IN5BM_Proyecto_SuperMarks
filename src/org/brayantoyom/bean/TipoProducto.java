@@ -2,23 +2,24 @@ package org.brayantoyom.bean;
 
 public class TipoProducto {
 
-    private int IDTipoProducto;
+    private int codigoTipoProducto;
     private String descripcion;
 
     public TipoProducto() {
     }
 
     public TipoProducto(int IDTipoProducto, String descripcion) {
-        this.IDTipoProducto = IDTipoProducto;
+        this.codigoTipoProducto = codigoTipoProducto;
         this.descripcion = descripcion;
+
     }
 
-    public int getIDTipoProducto() {
-        return IDTipoProducto;
+    public int getCodigoTipoProducto() {
+        return codigoTipoProducto;
     }
 
-    public void setIDTipoProducto(int IDTipoProducto) {
-        this.IDTipoProducto = IDTipoProducto;
+    public void setCodigoTipoProducto(int codigoTipoProducto) {
+        this.codigoTipoProducto = codigoTipoProducto;
     }
 
     public String getDescripcion() {
@@ -27,5 +28,6 @@ public class TipoProducto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+
     }
 }

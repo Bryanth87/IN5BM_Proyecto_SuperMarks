@@ -117,7 +117,7 @@ public class ProveedoresController implements Initializable{
 
     public void cargarDatos() {
         tblProveedores.setItems(getProveedores());
-        colCodigoProveedor.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("IDProveedor"));
+        colCodigoProveedor.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("codigoProveedor"));
         colNombresProveedor.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("nombresProveedor"));
         colApellidosProveedor.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("apellidosProveedor"));
         colNITProveedor.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("NITProveedor"));
@@ -130,7 +130,7 @@ public class ProveedoresController implements Initializable{
     }
 
     public void seleccionarElementos() {
-        txtCodigoProveedor.setText(String.valueOf(((Proveedores) tblProveedores.getSelectionModel().getSelectedItem()).getIDProveedor()));
+        txtCodigoProveedor.setText(String.valueOf(((Proveedores) tblProveedores.getSelectionModel().getSelectedItem()).getCodigoProveedor()));
         txtNombresProveedor.setText((((Proveedores) tblProveedores.getSelectionModel().getSelectedItem()).getNombresProveedor()));
         txtApellidosProveedor.setText((((Proveedores) tblProveedores.getSelectionModel().getSelectedItem()).getApellidosProveedor()));
         txtNITProveedor.setText((((Proveedores) tblProveedores.getSelectionModel().getSelectedItem()).getNITProveedor()));
@@ -148,7 +148,7 @@ public class ProveedoresController implements Initializable{
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_ListarProveedores()}");
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
-                lista.add(new Proveedores(resultado.getInt("IDProveedor"),
+                lista.add(new Proveedores(resultado.getInt("codigoProveedor"),
                         resultado.getString("nombresProveedor"),
                         resultado.getString("apellidosProveedor"),
                         resultado.getString("NITProveedor"),
@@ -190,7 +190,7 @@ public class ProveedoresController implements Initializable{
         }
     }
 
-    public void eliminar() {
+    public void Eliminar() {
         switch (tipoDeOperaciones) {
             case ACTUALIZAR:
                 desactivarControles();
@@ -208,7 +208,7 @@ public class ProveedoresController implements Initializable{
                     if (respuesta == JOptionPane.YES_NO_OPTION) {
                         try {
                             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_EliminarProveedor(?)}");
-                            procedimiento.setInt(1, ((Proveedores) tblProveedores.getSelectionModel().getSelectedItem()).getIDProveedor());
+                            procedimiento.setInt(1, ((Proveedores) tblProveedores.getSelectionModel().getSelectedItem()).getCodigoProveedor());
                             procedimiento.execute();
                             listaProveedores.remove(tblProveedores.getSelectionModel().getSelectedItem());
                             limpiarControles();
@@ -222,7 +222,7 @@ public class ProveedoresController implements Initializable{
         }
     }
 
-    public void editar() {
+    public void Editar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 if (tblProveedores.getSelectionModel().getSelectedItem() != null) {
@@ -251,7 +251,7 @@ public class ProveedoresController implements Initializable{
         }
     }
 
-    public void reporte() {
+    public void Reporte() {
         switch (tipoDeOperaciones) {
             case ACTUALIZAR:
                 desactivarControles();
@@ -268,7 +268,7 @@ public class ProveedoresController implements Initializable{
 
     public void guardar() {
         Proveedores registro = new Proveedores();
-        registro.setIDProveedor(Integer.parseInt(txtCodigoProveedor.getText()));
+        registro.setCodigoProveedor(Integer.parseInt(txtCodigoProveedor.getText()));
         registro.setNombresProveedor(txtNombresProveedor.getText());
         registro.setApellidosProveedor(txtApellidosProveedor.getText());
         registro.setNITProveedor(txtNITProveedor.getText());
@@ -280,7 +280,7 @@ public class ProveedoresController implements Initializable{
         registro.setPaginaWeb(txtPaginaWeb.getText());
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_AgregarProveedor(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
-            procedimiento.setInt(1, registro.getIDProveedor());
+            procedimiento.setInt(1, registro.getCodigoProveedor());
             procedimiento.setString(2, registro.getNombresProveedor());
             procedimiento.setString(3, registro.getApellidosProveedor());
             procedimiento.setString(4, registro.getNITProveedor());
@@ -311,7 +311,7 @@ public class ProveedoresController implements Initializable{
             registro.setRazonSocial(txtRazonSocial.getText());
             registro.setContactoPrincipal(txtContactoPrincipal.getText());
             registro.setPaginaWeb(txtPaginaWeb.getText());
-            procedimiento.setInt(1, registro.getIDProveedor());
+            procedimiento.setInt(1, registro.getCodigoProveedor());
             procedimiento.setString(2, registro.getNombresProveedor());
             procedimiento.setString(3, registro.getApellidosProveedor());
             procedimiento.setString(4, registro.getNITProveedor());

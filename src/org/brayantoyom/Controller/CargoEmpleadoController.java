@@ -1,4 +1,3 @@
-
 package org.brayantoyom.Controller;
 
 import java.net.URL;
@@ -21,7 +20,8 @@ import org.brayantoyom.bean.CargoEmpleado;
 import org.brayantoyom.db.Conexion;
 import org.brayantoyom.system.Main;
 
-public class CargoEmpleadoController implements Initializable{
+public class CargoEmpleadoController implements Initializable {
+
     private int op;
     private ObservableList<CargoEmpleado> listaCargoEmpleado;
     private Main escenarioPrincipal;
@@ -29,7 +29,7 @@ public class CargoEmpleadoController implements Initializable{
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
     }
-    
+
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
     @FXML
     private Button btnRegresar;
@@ -53,7 +53,7 @@ public class CargoEmpleadoController implements Initializable{
 
     @FXML
     private TableColumn colDescripcionCargo;
-    
+
     @FXML
     private Button btnAgregarCargoEmpleado;
 
@@ -67,28 +67,26 @@ public class CargoEmpleadoController implements Initializable{
     private Button btnReportes;
 
     @Override
-        public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) {
         cargarDatos();
-        
-    }
-  
-    public void cargarDatos() {
-        tblCargoEmpleado.setItems(getCargoEmpleado());
-        colCodigoCargoEmpleado.setCellValueFactory(new PropertyValueFactory<CargoEmpleado, Integer>("codigoCargoEmpleado"));
-        colNombresCargo.setCellValueFactory(new PropertyValueFactory<CargoEmpleado, String>("nombresCargo"));
-        colDescripcionCargo.setCellValueFactory(new PropertyValueFactory<CargoEmpleado, String>("descripcionCargo"));
 
-         }
+    }
+
+    public void cargarDatos() {
+        tblCargoEmpleado.setItems(getEmpleados());
+        colCodigoCargoEmpleado.setCellValueFactory(new PropertyValueFactory<CargoEmpleado, Integer>("codigoCargoEmpleado"));
+        colNombresCargo.setCellValueFactory(new PropertyValueFactory<CargoEmpleado, Integer>("nombresCargo"));
+        colDescripcionCargo.setCellValueFactory(new PropertyValueFactory<CargoEmpleado, Integer>("descripcionCargo"));
+
+    }
 
     public void seleccionarElementos() {
         txtCodigoCargoEmpleado.setText(String.valueOf(((CargoEmpleado) tblCargoEmpleado.getSelectionModel().getSelectedItem()).getCodigoCargoEmpleado()));
         txtNombresCargo.setText((((CargoEmpleado) tblCargoEmpleado.getSelectionModel().getSelectedItem()).getNombresCargo()));
-        txtDescripcionCargo.setText(((CargoEmpleado) tblCargoEmpleado.getSelectionModel().getSelectedItem()).getDescripcionCargo());
-        
-        
+        txtDescripcionCargo.setText((((CargoEmpleado) tblCargoEmpleado.getSelectionModel().getSelectedItem()).getDescripcionCargo()));
     }
 
-    public ObservableList<CargoEmpleado> getCargoEmpleado() {
+    public ObservableList<CargoEmpleado> getEmpleados() {
         ArrayList<CargoEmpleado> lista = new ArrayList<>();
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarCargoEmpleado()}");
@@ -96,19 +94,16 @@ public class CargoEmpleadoController implements Initializable{
             while (resultado.next()) {
                 lista.add(new CargoEmpleado(resultado.getInt("codigoCargoEmpleado"),
                         resultado.getString("nombresCargo"),
-                        resultado.getString("descripcionCargo")));
-                        
+                        resultado.getString("descripcionCargo")
+                ));
             }
-                        
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         return listaCargoEmpleado = FXCollections.observableList(lista);
     }
-    
 
-    public void AgregarCargoEmpleado() {
+    public void Agregar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 activarControles();
@@ -119,38 +114,20 @@ public class CargoEmpleadoController implements Initializable{
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
-                GuardarCargoEmpleado();
+                Guardar();
                 desactivarControles();
                 limpiarControles();
+                cargarDatos();
                 btnAgregarCargoEmpleado.setText("Agregar");
                 btnEliminarCargoEmpleado.setText("Eliminar");
                 btnEditarCargoEmpleado.setDisable(false);
                 btnReportes.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
-
         }
     }
 
-    public void GuardarCargoEmpleado() {
-        CargoEmpleado registro = new CargoEmpleado();
-        registro.setCodigoCargoEmpleado(Integer.parseInt(txtCodigoCargoEmpleado.getText()));
-        registro.setNombresCargo(txtNombresCargo.getText());
-        registro.setDescripcionCargo(txtDescripcionCargo.getText());
-        try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{sp_agregarCargoEmpleado(?, ?, ?)}");
-            procedimiento.setInt(1, registro.getCodigoCargoEmpleado());
-            procedimiento.setString(2, registro.getNombresCargo());
-            procedimiento.setString(3, registro.getDescripcionCargo());
-            procedimiento.execute();
-            listaCargoEmpleado.add(registro);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void EliminarCargoEmpleado() {
+    public void Eliminar() {
         switch (tipoDeOperaciones) {
             case ACTUALIZAR:
                 desactivarControles();
@@ -163,8 +140,8 @@ public class CargoEmpleadoController implements Initializable{
                 break;
             default:
                 if (tblCargoEmpleado.getSelectionModel().getSelectedItem() != null) {
-                    int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminarlo?", "Eliminar empleado",
-                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    int respuesta = JOptionPane.showConfirmDialog(null, "Confirmar la eliminacion de registro",
+                            "Eliminar Empleados", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (respuesta == JOptionPane.YES_NO_OPTION) {
                         try {
                             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_eliminarCargoEmpleado(?)}");
@@ -174,18 +151,15 @@ public class CargoEmpleadoController implements Initializable{
                             limpiarControles();
                         } catch (Exception e) {
                             e.printStackTrace();
-
                         }
-
                     }
-
                 } else {
-                    JOptionPane.showMessageDialog(null, "Primero selecciona un empleado para eliminar");
+                    JOptionPane.showMessageDialog(null, "Debe de seleccionar un Empleado para eliminar");
                 }
         }
     }
 
-    public void EditarCargoEmpleado() {
+    public void Editar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 if (tblCargoEmpleado.getSelectionModel().getSelectedItem() != null) {
@@ -197,11 +171,11 @@ public class CargoEmpleadoController implements Initializable{
                     txtCodigoCargoEmpleado.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
                 } else {
-                    JOptionPane.showMessageDialog(null, "Primero selecciona un empleado para editar");
+                    JOptionPane.showConfirmDialog(null, "Debe de seleccionar un Empleado para editar");
                 }
                 break;
             case ACTUALIZAR:
-                ActualizarCargoEmpleado();
+                Actualizar();
                 btnEditarCargoEmpleado.setText("Editar");
                 btnReportes.setText("Reporte");
                 btnAgregarCargoEmpleado.setDisable(false);
@@ -214,14 +188,42 @@ public class CargoEmpleadoController implements Initializable{
         }
     }
 
-    public void ActualizarCargoEmpleado() {
-        switch (op) {
-
+    public void Reporte() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                desactivarControles();
+                limpiarControles();
+                btnReportes.setText("Reporte");
+                btnEditarCargoEmpleado.setText("Editar");
+                btnAgregarCargoEmpleado.setDisable(false);
+                btnEliminarCargoEmpleado.setDisable(false);
+                tipoDeOperaciones = operaciones.NINGUNO;
+            case NINGUNO:
+                break;
         }
+    }
+
+    public void Guardar() {
+        CargoEmpleado registro = new CargoEmpleado();
+        registro.setCodigoCargoEmpleado(Integer.parseInt(txtCodigoCargoEmpleado.getText()));
+        registro.setNombresCargo(txtNombresCargo.getText());
+        registro.setDescripcionCargo(txtDescripcionCargo.getText());
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{sp_actualizarCargoEmpleado(?, ?, ?)}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarCargoEmpleado(?, ?, ?)}");
+            procedimiento.setInt(1, registro.getCodigoCargoEmpleado());
+            procedimiento.setString(2, registro.getNombresCargo());
+            procedimiento.setString(3, registro.getDescripcionCargo());
+            procedimiento.execute();
+            listaCargoEmpleado.add(registro);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Actualizar() {
+        try {
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarCargoEmpleado(?,?,?)}");
             CargoEmpleado registro = (CargoEmpleado) tblCargoEmpleado.getSelectionModel().getSelectedItem();
-            registro.setCodigoCargoEmpleado(Integer.parseInt(txtCodigoCargoEmpleado.getText()));
             registro.setNombresCargo(txtNombresCargo.getText());
             registro.setDescripcionCargo(txtDescripcionCargo.getText());
             procedimiento.setInt(1, registro.getCodigoCargoEmpleado());
@@ -237,21 +239,22 @@ public class CargoEmpleadoController implements Initializable{
         txtCodigoCargoEmpleado.setEditable(false);
         txtNombresCargo.setEditable(false);
         txtDescripcionCargo.setEditable(false);
-
     }
 
     public void activarControles() {
         txtCodigoCargoEmpleado.setEditable(true);
         txtNombresCargo.setEditable(true);
         txtDescripcionCargo.setEditable(true);
-
     }
 
     public void limpiarControles() {
         txtCodigoCargoEmpleado.clear();
         txtNombresCargo.clear();
         txtDescripcionCargo.clear();
+    }
 
+    public Main getEscenarioPrincipal() {
+        return escenarioPrincipal;
     }
 
     public void setEscenarioPrincipal(Main escenarioPrincipal) {
@@ -262,13 +265,6 @@ public class CargoEmpleadoController implements Initializable{
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnRegresar) {
             escenarioPrincipal.menuPrincipalView();
-            
-                
         }
     }
-
 }
-
-
-
-

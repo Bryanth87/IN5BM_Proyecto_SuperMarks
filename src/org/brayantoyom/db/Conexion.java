@@ -20,7 +20,7 @@ public class Conexion {
         e.printStackTrace();
     }catch(IllegalAccessException e){
         e.printStackTrace();
-    }catch (SQLException e){
+    }catch (SQLException e){    
         e.printStackTrace();
     } catch (Exception e){
         e.printStackTrace();

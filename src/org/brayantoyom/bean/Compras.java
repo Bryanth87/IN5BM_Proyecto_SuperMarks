@@ -1,7 +1,7 @@
-
 package org.brayantoyom.bean;
 
 public class Compras {
+
     private int numDocumento;
     private String fechaDocumento;
     private String descripcion;
@@ -48,6 +48,5 @@ public class Compras {
     public void setTotalDocumento(double totalDocumento) {
         this.totalDocumento = totalDocumento;
     }
- 
-    
+
 }
