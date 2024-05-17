@@ -9,7 +9,7 @@ create table Clientes (
 	codigoCliente int primary key,
     nombresClientes varchar (50),
     apellidosCliente varchar (50),
-	NITCliente varchar (10),
+	NITCliente varchar (10),	
 	telefonoCliente varchar (45),
 	direccionCliente varchar(150),
 	correoCliente varchar (45)
@@ -49,7 +49,7 @@ create table Compras(
 
 create table Proveedores(
 
-	IDProveedor int primary key,
+	codigoProveedor int primary key,
     nombresProveedor varchar(50),
     apellidosProveedor varchar (50),
     NITProveedor varchar(10),
@@ -67,13 +67,13 @@ create table Proveedores(
 delimiter $$
 
 create procedure sp_agregarClientes(
-    in _codigoCliente int, in _nombresClientes varchar(50), in _apellidosCliente varchar(50),
-    in _NITCliente varchar(10), in _telefonoCliente varchar(45), in _direccionCliente varchar(150),
-    in _correoCliente varchar(45)
+    in codeCliente int, in nombClientes varchar(50), in apeCliente varchar(50),
+    in NITCli varchar(10), in teleCliente varchar(45), in direcCliente varchar(150),
+    in correoCli varchar(45)
 )
 begin
     insert into Clientes (codigoCliente, nombresClientes, apellidosCliente, NITCliente, telefonoCliente, direccionCliente, correoCliente)
-    values (_codigoCliente, _nombresClientes, _apellidosCliente, _NITCliente, _telefonoCliente, _direccionCliente, _correoCliente);
+    values (codeCliente, nombClientes, apeCliente, NITCli, teleCliente, direcCliente, correoCli);
 end$$
 
 delimiter ;
@@ -101,9 +101,9 @@ call sp_listarClientes();
 
 delimiter $$
 
-create procedure sp_buscarClientes(in _codigoCliente int)
+create procedure sp_buscarClientes(in codeCliente int)
 begin
-    select * from Clientes where codigoCliente = _codigoCliente;
+    select * from Clientes where codigoCliente = codeCliente;
 end$$
 
 delimiter ;
@@ -117,21 +117,21 @@ call sp_BuscarClientes(2);
 delimiter $$
 
 create procedure sp_actualizarClientes(
-    in _codigoCliente int, in _nombresClientes varchar(50), in _apellidosCliente varchar(50),
-    in _NITCliente varchar(10), in _telefonoCliente varchar(45), in _direccionCliente varchar(150),
-    in _correoCliente varchar(45)
+    in codeCliente int, in nombClientes varchar(50), in apeCliente varchar(50),
+    in NITCli varchar(10), in teleCliente varchar(45), in direcCliente varchar(150),
+    in correoCli varchar(45)
 )
 begin
     update Clientes
     set
-        NITCliente = _NITCliente,
-        nombresClientes = _nombresClientes,
-        apellidosCliente = _apellidosCliente,
-        direccionCliente = _direccionCliente,
-        telefonoCliente = _telefonoCliente,
-        correoCliente = _correoCliente
+        NITCliente = NITCli,
+        nombresClientes = nombClientes,
+        apellidosCliente = apeCliente,
+        direccionCliente = direcCliente,
+        telefonoCliente = teleCliente,
+        correoCliente = correoCli
     where
-        codigoCliente = _codigoCliente;
+        codigoCliente = codeCliente;
 end$$
 
 delimiter ;
@@ -144,9 +144,9 @@ call sp_ActualizarClientes(1, 'Junior', 'Hernandez', '478423', '8794', 'Zona 9',
 
 delimiter $$
 
-create procedure sp_eliminarClientes(in _codigoCliente int)
+create procedure sp_eliminarClientes(in codeCliente int)
 begin
-    delete from Clientes where codigoCliente = _codigoCliente;
+    delete from Clientes where codigoCliente = codeCliente;
 end$$
 
 delimiter ;
@@ -279,7 +279,7 @@ delimiter $$
 
 create procedure sp_buscarTipoProducto(in codeTipoProducto int)
 begin
-    select * from TipoProducto where codeTipoProducto = codeTipoProducto;
+    select * from TipoProducto where codigoTipoProducto = codeTipoProducto;
 end$$
 
 delimiter ;
@@ -300,11 +300,11 @@ begin
     set
         descripcion = descripTipo
     where
-        IDTipoProducto = codeTipoProducto;
+        codigoTipoProducto = codeTipoProducto;
 end$$
 
 delimiter ;
-
+	
 -- ---------------------------------------------------------------------------------------------------------------------------
 
 call sp_actualizarTipoProducto(2, 'Carros de Japón');
@@ -315,14 +315,14 @@ delimiter $$
 
 create procedure sp_eliminarTipoProducto(in codeTipoProducto int)
 begin
-    delete from TipoProducto where IDTipoProducto = codeTipoProducto;
+    delete from TipoProducto where codigoTipoProducto = codeTipoProducto;
 end$$
 
 delimiter ;	
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
-call sp_eliminarTipoProducto(1);
+call sp_eliminarTipoProducto(3);
 
 
 -- ---------------------------------------------------------------------------------------------------------------------------
@@ -330,14 +330,14 @@ call sp_eliminarTipoProducto(1);
 delimiter $$
 
 create procedure sp_agregarCompra(
-	in numDocumento int,
-    in fechaDocumento date,
-    in descripcion varchar(60),
-    in totalDocumento decimal(20,2)
+	in numbCompras int,
+    in fechaCompras date,
+    in descripcionCompras varchar(60),
+    in totalCompras decimal(20,2)
 )
 begin
     insert into Compras (numDocumento,fechaDocumento, descripcion, totalDocumento)
-    values (numDocumento,fechaDocumento, descripcion, totalDocumento);
+    values (numbCompras,fechaCompras, descripcionCompras, totalCompras);
 end$$
 
 delimiter ;
@@ -365,9 +365,9 @@ call sp_listarCompras();
 
 delimiter $$
 
-create procedure sp_buscarCompra(in _numDocumento int)
+create procedure sp_buscarCompra(in numbCompras int)
 begin
-    select * from Compras where numDocumento = _numDocumento;
+    select * from Compras where numDocumento = numbCompras;
 end$$
 
 delimiter ;
@@ -381,19 +381,19 @@ call sp_buscarCompra(2);
 delimiter $$
 
 create procedure sp_actualizarCompra(
-    in _numDocumento int,
-    in fechaDocumento date,
-    in descripcion varchar(60),
-    in totalDocumento decimal(20,2)
+    in numbCompras int,
+    in fechaCompras date,
+    in descripcionCompras varchar(60),
+    in totalCompras decimal(20,2)
 )
 begin
     update Compras
     set
-        fechaDocumento = fechaDocumento,
-        descripcion = descripcion,
-        totalDocumento = totalDocumento
+        fechaDocumento = fechaCompras,
+        descripcion = descripcionCompras,
+        totalDocumento = totalCompras
     where
-        numDocumento = _numDocumento;
+        numDocumento = numbCompras;
 end$$
 
 delimiter ;
@@ -406,9 +406,9 @@ call sp_actualizarCompra(2, '2085-06-08', 'Compra de imanes', 950.00);
 
 delimiter $$
 
-create procedure sp_eliminarCompra(in _numDocumento int)
+create procedure sp_eliminarCompra(in numbCompras int)
 begin
-    delete from Compras where numDocumento = _numDocumento;
+    delete from Compras where numDocumento = numbCompras;
 end$$
 
 delimiter ;

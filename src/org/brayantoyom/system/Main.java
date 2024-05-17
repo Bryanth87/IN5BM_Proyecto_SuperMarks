@@ -112,7 +112,7 @@ public class Main extends Application {
         
         public void menuCompras() {
         try {
-            ComprasController menuComprasView = (ComprasController) cambiarEscena(".fxml", 975, 540);
+            ComprasController menuComprasView = (ComprasController) cambiarEscena("ViewCompras.fxml", 977, 625);
             menuComprasView.setEscenarioPrincipal(this);
 
         } catch (Exception e) {

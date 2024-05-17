@@ -98,7 +98,7 @@ public class ComprasController implements Initializable {
     public ObservableList<Compras> getCompras() {
         ArrayList<Compras> lista = new ArrayList<>();
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_ListarCompras()}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarCompras()}");
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
                 lista.add(new Compras(resultado.getInt("numDocumento"),
@@ -154,7 +154,7 @@ public class ComprasController implements Initializable {
                             "Eliminar Compras", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (respuesta == JOptionPane.YES_NO_OPTION) {
                         try {
-                            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_EliminarCompra(?)}");
+                            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_eliminarCompra(?)}");
                             procedimiento.setInt(1, ((Compras) tblCompras.getSelectionModel().getSelectedItem()).getNumDocumento());
                             procedimiento.execute();
                             listaCompras.remove(tblCompras.getSelectionModel().getSelectedItem());
@@ -220,7 +220,7 @@ public class ComprasController implements Initializable {
         registro.setDescripcion(txtDescripcionCompras.getText());
         registro.setTotalDocumento(Double.parseDouble(txtTotalDocumentoCompras.getText()));
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_AgregarCompra(?, ?, ?, ?)}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarCompra(?, ?, ?, ?)}");
             procedimiento.setInt(1, registro.getNumDocumento());
             procedimiento.setString(2, registro.getFechaDocumento());
             procedimiento.setString(3, registro.getDescripcion());
@@ -234,7 +234,7 @@ public class ComprasController implements Initializable {
 
     public void Actualizar() {
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_ActualizarCompra(?,?,?,?)}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarCompra(?,?,?,?)}");
             Compras registro = (Compras) tblCompras.getSelectionModel().getSelectedItem();
             registro.setFechaDocumento(txtFechaDocumentoCompras.getText());
             registro.setDescripcion(txtDescripcionCompras.getText());

@@ -13,19 +13,19 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.brayantoyom.Controller.ComprasController">
    <children>
       <ImageView fitHeight="625.0" fitWidth="977.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/Compras.png" />
          </image>
       </ImageView>
-      <TableView layoutX="308.0" layoutY="291.0" prefHeight="208.0" prefWidth="593.0" style="-fx-background-color: F2CA7E;">
+      <TableView fx:id="tblCompras" layoutX="308.0" layoutY="291.0" prefHeight="208.0" prefWidth="593.0">
         <columns>
-          <TableColumn prefWidth="156.0" style="-fx-background-color: F2F2F2;" text="numDocumento" />
-          <TableColumn minWidth="0.0" prefWidth="137.0" style="-fx-background-color: F2F2F2;" text="fechaDocumento" />
-            <TableColumn prefWidth="143.0" style="-fx-background-color: F2F2F2;" text="descripcion" />
-            <TableColumn prefWidth="155.0" style="-fx-background-color: F2F2F2;" text="totalDocumento" />
+          <TableColumn fx:id="colNumbDocumentoCompras" prefWidth="156.0" text="numDocumento" />
+          <TableColumn fx:id="colFechaDocumentoCompras" minWidth="0.0" prefWidth="137.0" text="fechaDocumento" />
+            <TableColumn fx:id="colDescripcioCompras" prefWidth="143.0" text="descripcion" />
+            <TableColumn fx:id="colTotalDocumentoCompras" prefWidth="155.0" text="totalDocumento" />
         </columns>
       </TableView>
       <GridPane layoutX="71.0" layoutY="283.0" prefHeight="197.0" prefWidth="211.0">
@@ -39,17 +39,17 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: F2A20C;" text="Agregar" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: f2a20c;" text="Eliminar" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: f2a20c;" text="Editar" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: f2a20c;" text="Reportes" GridPane.rowIndex="3" />
+            <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#Agregar" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: F2A20C;" text="Agregar" />
+            <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#Eliminar" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: f2a20c;" text="Eliminar" GridPane.rowIndex="1" />
+            <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#Editar" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: f2a20c;" text="Editar" GridPane.rowIndex="2" />
+            <Button fx:id="btnReportes" mnemonicParsing="false" onAction="#Reporte" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: f2a20c;" text="Reportes" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button layoutX="78.0" layoutY="216.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="117.0" style="-fx-background-color: F2A20C;" text="Regresar" />
-      <TextField layoutX="355.0" layoutY="51.0" style="-fx-background-color: F2F2F2;" />
-      <TextField layoutX="355.0" layoutY="149.0" style="-fx-background-color: F2F2F2;" />
-      <TextField layoutX="355.0" layoutY="204.0" style="-fx-background-color: F2F2F2;" />
-      <TextField layoutX="355.0" layoutY="95.0" style="-fx-background-color: F2F2F2;" />
+      <Button fx:id="btnRegresar" layoutX="78.0" layoutY="216.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="42.0" prefWidth="117.0" style="-fx-background-color: F2A20C;" text="Regresar" />
+      <TextField fx:id="txtNumDocumentoCompras" layoutX="355.0" layoutY="51.0" style="-fx-background-color: F2F2F2;" />
+      <TextField fx:id="txtDescripcionCompras" layoutX="355.0" layoutY="149.0" style="-fx-background-color: F2F2F2;" />
+      <TextField fx:id="txtTotalDocumentoCompras" layoutX="355.0" layoutY="204.0" style="-fx-background-color: F2F2F2;" />
+      <TextField fx:id="txtFechaDocumentoCompras" layoutX="355.0" layoutY="95.0" style="-fx-background-color: F2F2F2;" />
       <Label layoutX="605.0" layoutY="95.0" prefHeight="27.0" prefWidth="186.0" text="fechaDocumento" textFill="WHITE">
          <font>
             <Font name="Elephant" size="20.0" />

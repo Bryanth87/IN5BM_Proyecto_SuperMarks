@@ -42,13 +42,13 @@ public class MenuPrincipalController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnMenuClientes) {
             escenarioPrincipal.menuClienteView();
-        } else if (event.getSource() == btnProgramador) {
+        }if (event.getSource() == btnProgramador) {
             escenarioPrincipal.menuProgramadorView();
-        } else if (event.getSource() == btnCargos) {
+        }if (event.getSource() == btnCargos) {
             escenarioPrincipal.menuCargoEmpleadoView();
-        } else if (event.getSource() == btnProductos) {
+        }if (event.getSource() == btnProductos) {
             escenarioPrincipal.menuTipoProductoView();
-        } else if (event.getSource() == btnCompras) {
+        }if (event.getSource() == btnCompras) {
             escenarioPrincipal.menuCompras();
         }
     }

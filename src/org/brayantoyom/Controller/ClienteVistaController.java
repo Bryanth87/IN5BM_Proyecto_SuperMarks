@@ -23,59 +23,61 @@ import org.brayantoyom.system.Main;
 public class ClienteVistaController implements Initializable {
 
     private int op;
-    private ObservableList<Clientes> listaClientes;
     private Main escenarioPrincipal;
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
     }
+
+    private ObservableList<Clientes> listaClientes;
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
+
     @FXML
     private Button btnRegresar;
     @FXML
-    private TextField txtCodigoC;
+    private TextField txtCodigoCliente;
 
     @FXML
-    private TextField txtNombreC;
+    private TextField txtNombreCliente;
 
     @FXML
-    private TextField txtApellidoC;
+    private TextField txtApellidoCliente;
 
     @FXML
-    private TextField txtNitC;
+    private TextField txtNitCliente;
 
     @FXML
-    private TextField txtDireccionC;
+    private TextField txtDireccionCliente;
 
     @FXML
-    private TextField txtTelefonoC;
+    private TextField txtTelefonoCliente;
 
     @FXML
-    private TextField txtCorreoC;
+    private TextField txtCorreoCliente;
 
     @FXML
     private TableView tblClientes;
 
     @FXML
-    private TableColumn colCodigoC;
+    private TableColumn colCodigoCliente;
 
     @FXML
-    private TableColumn colNitC;
+    private TableColumn colNitCliente;
 
     @FXML
-    private TableColumn colApellidoC;
+    private TableColumn colApellidoCliente;
 
     @FXML
-    private TableColumn colNombreC;
+    private TableColumn colNombreCliente;
 
     @FXML
-    private TableColumn colDireccionC;
+    private TableColumn colDireccionCliente;
 
     @FXML
-    private TableColumn colTelefonoC;
+    private TableColumn colTelefonoCliente;
 
     @FXML
-    private TableColumn colCorreoC;
+    private TableColumn colCorreoCliente;
 
     @FXML
     private Button btnAgregar;
@@ -97,24 +99,23 @@ public class ClienteVistaController implements Initializable {
 
     public void cargarDatos() {
         tblClientes.setItems(getClientes());
-        colCodigoC.setCellValueFactory(new PropertyValueFactory<Clientes, Integer>("codigoCliente"));
-        colNitC.setCellValueFactory(new PropertyValueFactory<Clientes, String>("NITCliente"));
-        colApellidoC.setCellValueFactory(new PropertyValueFactory<Clientes, String>("apellidosCliente"));
-        colNombreC.setCellValueFactory(new PropertyValueFactory<Clientes, String>("nombresCliente"));
-        colDireccionC.setCellValueFactory(new PropertyValueFactory<Clientes, String>("direccionCliente"));
-        colTelefonoC.setCellValueFactory(new PropertyValueFactory<Clientes, String>("telefonoCliente"));
-        colCorreoC.setCellValueFactory(new PropertyValueFactory<Clientes, String>("correoCliente"));
-
+        colCodigoCliente.setCellValueFactory(new PropertyValueFactory<Clientes, Integer>("codigoCliente"));
+        colNombreCliente.setCellValueFactory(new PropertyValueFactory<Clientes, Integer>("nombresClientes"));
+        colApellidoCliente.setCellValueFactory(new PropertyValueFactory<Clientes, Integer>("apellidosCliente"));
+        colNitCliente.setCellValueFactory(new PropertyValueFactory<Clientes, Integer>("NITCliente"));
+        colTelefonoCliente.setCellValueFactory(new PropertyValueFactory<Clientes, Integer>("telefonoCliente"));
+        colDireccionCliente.setCellValueFactory(new PropertyValueFactory<Clientes, Integer>("direccionCliente"));
+        colCorreoCliente.setCellValueFactory(new PropertyValueFactory<Clientes, Integer>("correoCliente"));
     }
 
     public void seleccionarElementos() {
-        txtCodigoC.setText(String.valueOf(((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getCodigoCliente()));
-        txtNitC.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getNITCliente()));
-        txtApellidoC.setText(((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getApellidosCliente());
-        txtNombreC.setText(((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getNombresCliente());
-        txtDireccionC.setText(((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getDireccionCliente());
-        txtTelefonoC.setText(((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getTelefonoCliente());
-        txtCorreoC.setText(((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getCorreoCliente());
+        txtCodigoCliente.setText(String.valueOf(((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getCodigoCliente()));
+        txtNombreCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getNombresCliente()));
+        txtApellidoCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getNombresCliente()));
+        txtNitCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getNITCliente()));
+        txtTelefonoCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getTelefonoCliente()));
+        txtDireccionCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getDireccionCliente()));
+        txtCorreoCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getCorreoCliente()));
     }
 
     public ObservableList<Clientes> getClientes() {
@@ -124,16 +125,18 @@ public class ClienteVistaController implements Initializable {
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
                 lista.add(new Clientes(resultado.getInt("codigoCliente"),
-                        resultado.getString("NITCliente"),
                         resultado.getString("nombresClientes"),
                         resultado.getString("apellidosCliente"),
-                        resultado.getString("direccionCliente"),
+                        resultado.getString("NITCliente"),
                         resultado.getString("telefonoCliente"),
-                        resultado.getString("correoCliente")));
+                        resultado.getString("direccionCliente"),
+                        resultado.getString("correoCliente")
+                ));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return listaClientes = FXCollections.observableList(lista);
     }
 
@@ -151,33 +154,33 @@ public class ClienteVistaController implements Initializable {
                 Guardar();
                 desactivarControles();
                 limpiarControles();
+                cargarDatos();
                 btnAgregar.setText("Agregar");
                 btnEliminar.setText("Eliminar");
                 btnEditar.setDisable(false);
                 btnReportes.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
-
         }
     }
 
     public void Guardar() {
         Clientes registro = new Clientes();
-        registro.setCodigoCliente(Integer.parseInt(txtCodigoC.getText()));
-        registro.setNITCliente(txtNitC.getText());
-        registro.setApellidosCliente(txtApellidoC.getText());
-        registro.setNombresCliente(txtNombreC.getText());
-        registro.setDireccionCliente(txtDireccionC.getText());
-        registro.setTelefonoCliente(txtTelefonoC.getText());
-        registro.setCorreoCliente(txtCorreoC.getText());
+        registro.setCodigoCliente(Integer.parseInt(txtCodigoCliente.getText()));
+        registro.setNombresCliente(txtNombreCliente.getText());
+        registro.setApellidosCliente(txtApellidoCliente.getText());
+        registro.setNITCliente(txtNitCliente.getText());
+        registro.setTelefonoCliente(txtTelefonoCliente.getText());
+        registro.setDireccionCliente(txtDireccionCliente.getText());
+        registro.setCorreoCliente(txtCorreoCliente.getText());
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarClientes(?, ?, ?, ?, ?, ?, ?)}");
             procedimiento.setInt(1, registro.getCodigoCliente());
-            procedimiento.setString(2, registro.getNITCliente());
+            procedimiento.setString(2, registro.getNombresCliente());
             procedimiento.setString(3, registro.getApellidosCliente());
-            procedimiento.setString(4, registro.getNombresCliente());
-            procedimiento.setString(5, registro.getDireccionCliente());
-            procedimiento.setString(6, registro.getTelefonoCliente());
+            procedimiento.setString(4, registro.getNITCliente());
+            procedimiento.setString(5, registro.getTelefonoCliente());
+            procedimiento.setString(6, registro.getDireccionCliente());
             procedimiento.setString(7, registro.getCorreoCliente());
             procedimiento.execute();
             listaClientes.add(registro);
@@ -200,8 +203,8 @@ public class ClienteVistaController implements Initializable {
                 break;
             default:
                 if (tblClientes.getSelectionModel().getSelectedItem() != null) {
-                    int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminarlo?", "Eliminar cliente",
-                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    int respuesta = JOptionPane.showConfirmDialog(null, "Confirmar la eliminacion de registro",
+                            "Eliminar Clientes", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (respuesta == JOptionPane.YES_NO_OPTION) {
                         try {
                             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_eliminarClientes(?)}");
@@ -211,13 +214,10 @@ public class ClienteVistaController implements Initializable {
                             limpiarControles();
                         } catch (Exception e) {
                             e.printStackTrace();
-
                         }
-
                     }
-
                 } else {
-                    JOptionPane.showMessageDialog(null, "Primero selecciona un cliente para eliminar");
+                    JOptionPane.showMessageDialog(null, "Primero seleccione un cliente para eliminar");
                 }
         }
     }
@@ -231,10 +231,10 @@ public class ClienteVistaController implements Initializable {
                     btnAgregar.setDisable(true);
                     btnEliminar.setDisable(true);
                     activarControles();
-                    txtCodigoC.setEditable(false);
+                    txtCodigoCliente.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
                 } else {
-                    JOptionPane.showMessageDialog(null, "Primero selecciona un cliente para editar");
+                    JOptionPane.showConfirmDialog(null, "Primero selccione un cliente para editar");
                 }
                 break;
             case ACTUALIZAR:
@@ -251,28 +251,38 @@ public class ClienteVistaController implements Initializable {
         }
     }
 
-    public void Actualizar() {
-        switch (op) {
-
+    public void Reporte() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                desactivarControles();
+                limpiarControles();
+                btnReportes.setText("Reporte");
+                btnEditar.setText("Editar");
+                btnAgregar.setDisable(false);
+                btnEliminar.setDisable(false);
+                tipoDeOperaciones = operaciones.NINGUNO;
+            case NINGUNO:
+                break;
         }
-        try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarClientes(?, ?, ?, ?, ?, ?, ?)}");
-            Clientes registro = (Clientes) tblClientes.getSelectionModel().getSelectedItem();
-            registro.setCodigoCliente(Integer.parseInt(txtCodigoC.getText()));
-            registro.setNITCliente(txtNitC.getText());
-            registro.setApellidosCliente(txtApellidoC.getText());
-            registro.setNombresCliente(txtNombreC.getText());
-            registro.setDireccionCliente(txtDireccionC.getText());
-            registro.setTelefonoCliente(txtTelefonoC.getText());
-            registro.setCorreoCliente(txtCorreoC.getText());
-            procedimiento.setInt(1, registro.getCodigoCliente());
-            procedimiento.setString(2, registro.getNITCliente());
-            procedimiento.setString(3, registro.getApellidosCliente());
-            procedimiento.setString(4, registro.getNombresCliente());
-            procedimiento.setString(5, registro.getDireccionCliente());
-            procedimiento.setString(6, registro.getTelefonoCliente());
-            procedimiento.setString(7, registro.getCorreoCliente());
+    }
 
+    public void Actualizar() {
+        try {
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarClientes(?,?,?,?,?,?,?)}");
+            Clientes registro = (Clientes) tblClientes.getSelectionModel().getSelectedItem();
+            registro.setNombresCliente(txtNombreCliente.getText());
+            registro.setApellidosCliente(txtApellidoCliente.getText());
+            registro.setNITCliente(txtNitCliente.getText());
+            registro.setTelefonoCliente(txtTelefonoCliente.getText());
+            registro.setDireccionCliente(txtDireccionCliente.getText());
+            registro.setCorreoCliente(txtCorreoCliente.getText());
+            procedimiento.setInt(1, registro.getCodigoCliente());
+            procedimiento.setString(2, registro.getNombresCliente());
+            procedimiento.setString(3, registro.getApellidosCliente());
+            procedimiento.setString(4, registro.getNITCliente());
+            procedimiento.setString(5, registro.getTelefonoCliente());
+            procedimiento.setString(6, registro.getDireccionCliente());
+            procedimiento.setString(7, registro.getCorreoCliente());
             procedimiento.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -280,35 +290,37 @@ public class ClienteVistaController implements Initializable {
     }
 
     public void desactivarControles() {
-        txtCodigoC.setEditable(false);
-        txtNombreC.setEditable(false);
-        txtApellidoC.setEditable(false);
-        txtNitC.setEditable(false);
-        txtDireccionC.setEditable(false);
-        txtTelefonoC.setEditable(false);
-        txtCorreoC.setEditable(false);
-
+        txtCodigoCliente.setEditable(false);
+        txtNombreCliente.setEditable(false);
+        txtApellidoCliente.setEditable(false);
+        txtDireccionCliente.setEditable(false);
+        txtNitCliente.setEditable(false);
+        txtTelefonoCliente.setEditable(false);
+        txtCorreoCliente.setEditable(false);
     }
 
     public void activarControles() {
-        txtCodigoC.setEditable(true);
-        txtNombreC.setEditable(true);
-        txtApellidoC.setEditable(true);
-        txtNitC.setEditable(true);
-        txtDireccionC.setEditable(true);
-        txtTelefonoC.setEditable(true);
-        txtCorreoC.setEditable(true);
-
+        txtCodigoCliente.setEditable(true);
+        txtNombreCliente.setEditable(true);
+        txtApellidoCliente.setEditable(true);
+        txtDireccionCliente.setEditable(true);
+        txtNitCliente.setEditable(true);
+        txtTelefonoCliente.setEditable(true);
+        txtCorreoCliente.setEditable(true);
     }
 
     public void limpiarControles() {
-        txtCodigoC.clear();
-        txtNombreC.clear();
-        txtApellidoC.clear();
-        txtNitC.clear();
-        txtDireccionC.clear();
-        txtTelefonoC.clear();
-        txtCorreoC.clear();
+        txtCodigoCliente.clear();
+        txtNombreCliente.clear();
+        txtApellidoCliente.clear();
+        txtDireccionCliente.clear();
+        txtNitCliente.clear();
+        txtTelefonoCliente.clear();
+        txtCorreoCliente.clear();
+    }
+
+    public Main getEscenarioPrincipal() {
+        return escenarioPrincipal;
     }
 
     public void setEscenarioPrincipal(Main escenarioPrincipal) {
