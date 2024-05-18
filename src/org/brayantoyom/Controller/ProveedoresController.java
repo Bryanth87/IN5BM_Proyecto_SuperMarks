@@ -32,8 +32,10 @@ public class ProveedoresController implements Initializable{
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
     }
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
+    
     @FXML
     private Button btnRegresar;
+    
     @FXML
     private TextField txtCodigoProveedor;
 
@@ -145,7 +147,7 @@ public class ProveedoresController implements Initializable{
     public ObservableList<Proveedores> getProveedores() {
         ArrayList<Proveedores> lista = new ArrayList<>();
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_ListarProveedores()}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarProveedores()}");
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
                 lista.add(new Proveedores(resultado.getInt("codigoProveedor"),
@@ -177,7 +179,7 @@ public class ProveedoresController implements Initializable{
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
-                guardar();
+                Guardar();
                 desactivarControles();
                 limpiarControles();
                 cargarDatos();
@@ -203,11 +205,11 @@ public class ProveedoresController implements Initializable{
                 break;
             default:
                 if (tblProveedores.getSelectionModel().getSelectedItem() != null) {
-                    int respuesta = JOptionPane.showConfirmDialog(null, "Confirmar la eliminacion de registro",
+                    int respuesta = JOptionPane.showConfirmDialog(null, "Confirmar la eliminacion de proveedor",
                             "Eliminar Proveedores", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (respuesta == JOptionPane.YES_NO_OPTION) {
                         try {
-                            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_EliminarProveedor(?)}");
+                            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_eliminarProveedor(?)}");
                             procedimiento.setInt(1, ((Proveedores) tblProveedores.getSelectionModel().getSelectedItem()).getCodigoProveedor());
                             procedimiento.execute();
                             listaProveedores.remove(tblProveedores.getSelectionModel().getSelectedItem());
@@ -217,7 +219,7 @@ public class ProveedoresController implements Initializable{
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Debe de seleccionar un proveedor para eliminar");
+                    JOptionPane.showMessageDialog(null, "Primero seleccione un proveedor para eliminar");
                 }
         }
     }
@@ -234,11 +236,11 @@ public class ProveedoresController implements Initializable{
                     txtCodigoProveedor.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
                 } else {
-                    JOptionPane.showConfirmDialog(null, "Debe de seleccionar un proveedor para editar");
+                    JOptionPane.showConfirmDialog(null, "Primero seleccione un proveedor para editar");
                 }
                 break;
             case ACTUALIZAR:
-                actualizar();
+                Actualizar();
                 btnEditar.setText("Editar");
                 btnReportes.setText("Reporte");
                 btnAgregar.setDisable(false);
@@ -266,7 +268,7 @@ public class ProveedoresController implements Initializable{
         }
     }
 
-    public void guardar() {
+    public void Guardar() {
         Proveedores registro = new Proveedores();
         registro.setCodigoProveedor(Integer.parseInt(txtCodigoProveedor.getText()));
         registro.setNombresProveedor(txtNombresProveedor.getText());
@@ -279,7 +281,7 @@ public class ProveedoresController implements Initializable{
         registro.setContactoPrincipal(txtContactoPrincipal.getText());
         registro.setPaginaWeb(txtPaginaWeb.getText());
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_AgregarProveedor(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarProveedor(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
             procedimiento.setInt(1, registro.getCodigoProveedor());
             procedimiento.setString(2, registro.getNombresProveedor());
             procedimiento.setString(3, registro.getApellidosProveedor());
@@ -298,9 +300,9 @@ public class ProveedoresController implements Initializable{
 
     }
 
-    public void actualizar() {
+    public void Actualizar() {
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_ActualizarProveedores(?,?,?,?,?,?,?,?,?,?)}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarProveedores(?,?,?,?,?,?,?,?,?,?)}");
             Proveedores registro = (Proveedores) tblProveedores.getSelectionModel().getSelectedItem();
             registro.setNombresProveedor(txtNombresProveedor.getText());
             registro.setApellidosProveedor(txtApellidosProveedor.getText());

@@ -201,7 +201,7 @@ delimiter ;
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
-call sp_buscarCargoEmpleado(2);
+call sp_buscarCargoEmpleado(1);
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
@@ -223,7 +223,7 @@ delimiter ;
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
-call sp_actualizarCargoEmpleado(2, 'Suplente', 'Encargado');
+call sp_actualizarCargoEmpleado(1, 'Suplente', 'Encargado');
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
@@ -422,26 +422,35 @@ call sp_eliminarCompra(3);
 delimiter $$
 
 create procedure sp_agregarProveedor (
-    in IDProveedor int,
-    in nombresProveedor varchar(50),
-    in apellidosProveedor varchar(50),
-    in NITProveedor varchar(10),
-    in telefonoProveedor varchar(45),
-    in direccionProveedor varchar(150),
-    in correoProveedor varchar(45),
-    in razonSocial varchar(45),
-    in contactoPrincipal varchar(100),
-    in paginaWeb varchar(45))
+    in codeProveedor int,
+    in nombProveedor varchar(50),
+    in apelProveedor varchar(50),
+    in NITPro varchar(10),
+    in teleProveedor varchar(45),
+    in direcProveedor varchar(150),
+    in correoPro varchar(45),
+    in razSocial varchar(45),
+    in contacPrincipal varchar(100),
+    in pageWeb varchar(45)
+)
 begin
-    insert into Proveedores (IDProveedor, nombresProveedor, apellidosProveedor, NITProveedor, telefonoProveedor, direccionProveedor, correoProveedor, razonSocial, contactoPrincipal, paginaWeb)
-    values (IDProveedor, nombresProveedor, apellidosProveedor, NITProveedor, telefonoProveedor, direccionProveedor, correoProveedor, razonSocial, contactoPrincipal, paginaWeb);
+    insert into Proveedores (
+        codigoProveedor, nombresProveedor, apellidosProveedor, NITProveedor, 
+        telefonoProveedor, direccionProveedor, correoProveedor, razonSocial, 
+        contactoPrincipal, paginaWeb
+    )
+    values (
+        codeProveedor, nombProveedor, apelProveedor, NITPro, 
+        teleProveedor, direcProveedor, correoPro, razSocial, 
+        contacPrincipal, pageWeb
+    );
 end $$
 
 delimiter ;
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
-call sp_agregarProveedor(1, 'Iman de calidad', 'S.A.', '84897', '65471', 'Zona 10, calle 1', 'iman@gmail.com' , 'Iman de calidad', 'Eduardo Melina', 'www.iman.com');
+call sp_agregarProveedor(1, 'Iman de calidad', 'S.A.', '84897', '65471', 'Zona 10, calle 1', 'iman@gmail.com', 'Iman de calidad', 'Eduardo Melina', 'www.iman.com');
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
@@ -450,7 +459,7 @@ delimiter $$
 create procedure sp_listarProveedores()
 begin
     select
-        IDProveedor,
+        codigoProveedor,
         nombresProveedor,
         apellidosProveedor,
         NITProveedor,
@@ -474,10 +483,10 @@ call sp_listarProveedores();
 
 delimiter $$
 
-create procedure sp_buscarProveedor (in _IDProveedor int)
+create procedure sp_buscarProveedor (in codeProveedor int)
 begin
     select
-        IDProveedor,
+        codigoProveedor,
         nombresProveedor,
         apellidosProveedor,
         NITProveedor,
@@ -490,7 +499,7 @@ begin
     from
         Proveedores
     where
-        IDProveedor = _IDProveedor;
+        codigoProveedor = codeProveedor;
 end $$
 
 delimiter ;
@@ -503,53 +512,54 @@ call sp_buscarProveedor(1);
 
 delimiter $$
 
-create procedure sp_eliminarProveedor (in _IDProveedor int)
+create procedure sp_eliminarProveedor (in codeProveedor int)
 begin
     delete from Proveedores
-    where IDProveedor = _IDProveedor;
+    where codigoProveedor = codeProveedor;
 end $$
 
 delimiter ;
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
-call sp_eliminarProveedor(1);
+call sp_eliminarProveedor(3);
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
 delimiter $$
 
 create procedure sp_actualizarProveedores(
-    in _IDProveedor int,
-    in nombresProveedor varchar(50),
-    in apellidosProveedor varchar(50),
-    in NITProveedor varchar(10),
-    in telefonoProveedor varchar(45),
-    in direccionProveedor varchar(150),
-    in correoProveedor varchar(45),
-    in razonSocial varchar(45),
-    in contactoPrincipal varchar(100),
-    in paginaWeb varchar(45))
+    in codeProveedor int,
+    in nombProveedor varchar(50),
+    in apelProveedor varchar(50),
+    in NITPro varchar(10),
+    in teleProveedor varchar(45),
+    in direcProveedor varchar(150),
+    in correoPro varchar(45),
+    in razSocial varchar(45),
+    in contacPrincipal varchar(100),
+    in pageWeb varchar(45)
+)
 begin
     update Proveedores
     set
-        nombresProveedor = nombresProveedor,
-        apellidosProveedor = apellidosProveedor,
-        NITProveedor = NITProveedor,
-        telefonoProveedor = telefonoProveedor,
-        direccionProveedor = direccionProveedor,
-        correoProveedor = correoProveedor,
-        razonSocial = razonSocial,
-        contactoPrincipal = contactoPrincipal,
-        paginaWeb = paginaWeb
+        nombresProveedor = nombProveedor,
+        apellidosProveedor = apelProveedor,
+        NITProveedor = NITPro,
+        telefonoProveedor = teleProveedor,
+        direccionProveedor = direcProveedor,
+        correoProveedor = correoPro,
+        razonSocial = razSocial,
+        contactoPrincipal = contacPrincipal,
+        paginaWeb = pageWeb
     where
-        IDProveedor = _IDProveedor;
+        codigoProveedor = codeProveedor;
 end $$
 
 delimiter ;
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
- call sp_actualizarProveedores(2, 'Esteban', 'Molina', '487158', '35471', 'Zona 12', 'Freegol@gmail.com' , 'Programa x', 'Si bro' , 'www.Freegol.com');
- 
- -- ---------------------------------------------------------------------------------------------------------------------------
+call sp_actualizarProveedores(2, 'Esteban', 'Molina', '487158', '35471', 'Zona 12', 'Freegol@gmail.com', 'Programa x', 'Si bro', 'www.Freegol.com');
+
+-- ---------------------------------------------------------------------------------------------------------------------------

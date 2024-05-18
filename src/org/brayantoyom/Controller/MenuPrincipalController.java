@@ -11,16 +11,22 @@ import org.brayantoyom.system.Main;
 public class MenuPrincipalController implements Initializable {
 
     private Main escenarioPrincipal;
+    
     @FXML
     MenuItem btnMenuClientes;
+    
     @FXML
     MenuItem btnProgramador;
+    
     @FXML
     MenuItem btnCargos;
+    
     @FXML
     MenuItem btnProductos;
+    
     @FXML
     MenuItem btnCompras;
+
     @FXML
     MenuItem btnProveedores;
 
@@ -42,14 +48,17 @@ public class MenuPrincipalController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnMenuClientes) {
             escenarioPrincipal.menuClienteView();
-        }if (event.getSource() == btnProgramador) {
+
+        } else if (event.getSource() == btnProgramador) {
             escenarioPrincipal.menuProgramadorView();
-        }if (event.getSource() == btnCargos) {
+        } else if (event.getSource() == btnCargos) {
             escenarioPrincipal.menuCargoEmpleadoView();
-        }if (event.getSource() == btnProductos) {
+        } else if (event.getSource() == btnProductos) {
             escenarioPrincipal.menuTipoProductoView();
-        }if (event.getSource() == btnCompras) {
-            escenarioPrincipal.menuCompras();
+        } else if (event.getSource() == btnCompras) {
+            escenarioPrincipal.menuComprasView();
+        } else if (event.getSource() == btnProveedores) {
+            escenarioPrincipal.menuProveedoresView();
         }
     }
 }

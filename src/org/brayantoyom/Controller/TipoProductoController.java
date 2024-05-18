@@ -60,29 +60,30 @@ public class TipoProductoController implements Initializable {
 
     @FXML
     private Button btnReportes;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarDatos();
     }
-    
+
     public void cargarDatos() {
         tblTipoProducto.setItems(getProductos());
         colCodigoTipoProducto.setCellValueFactory(new PropertyValueFactory<TipoProducto, Integer>("codigoTipoProducto"));
         colDescripcionTipoProducto.setCellValueFactory(new PropertyValueFactory<TipoProducto, Integer>("descripcion"));
     }
-    
+
     public void seleccionarElementos() {
-        colCodigoTipoProducto.setText(String.valueOf(((TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto()));
-        colDescripcionTipoProducto.setText((((TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem()).getDescripcion()));
+        txtCodigoTipoProducto.setText(String.valueOf(((TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto()));
+        txtDescripcionProducto.setText((((TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem()).getDescripcion()));
     }
-    
+
     public ObservableList<TipoProducto> getProductos() {
         ArrayList<TipoProducto> lista = new ArrayList<>();
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_ListarTipoProducto()}");
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
-                lista.add(new TipoProducto(resultado.getInt("codigoTipoProducto"),
+                lista.add(new TipoProducto(resultado.getInt("IDTipoProducto"),
                         resultado.getString("descripcion")
                 ));
             }
@@ -91,7 +92,7 @@ public class TipoProductoController implements Initializable {
         }
         return listaTipoProducto = FXCollections.observableList(lista);
     }
-    
+
     public void Agregar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
@@ -115,7 +116,7 @@ public class TipoProductoController implements Initializable {
                 break;
         }
     }
-    
+
     public void Eliminar() {
         switch (tipoDeOperaciones) {
             case ACTUALIZAR:
@@ -133,7 +134,7 @@ public class TipoProductoController implements Initializable {
                             "Eliminar Producto", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (respuesta == JOptionPane.YES_NO_OPTION) {
                         try {
-                            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_EliminarTipoProducto(?)}");
+                            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_eliminarTipoProducto(?)}");
                             procedimiento.setInt(1, ((TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto());
                             procedimiento.execute();
                             listaTipoProducto.remove(tblTipoProducto.getSelectionModel().getSelectedItem());
@@ -147,7 +148,7 @@ public class TipoProductoController implements Initializable {
                 }
         }
     }
-    
+
     public void Editar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
@@ -176,7 +177,7 @@ public class TipoProductoController implements Initializable {
                 break;
         }
     }
-    
+
     public void Reporte() {
         switch (tipoDeOperaciones) {
             case ACTUALIZAR:
@@ -191,7 +192,7 @@ public class TipoProductoController implements Initializable {
                 break;
         }
     }
-    
+
     public void Guardar() {
         TipoProducto registro = new TipoProducto();
         registro.setCodigoTipoProducto(Integer.parseInt(txtCodigoTipoProducto.getText()));
@@ -206,7 +207,7 @@ public class TipoProductoController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     public void actualizar() {
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_ActualizarTipoProducto(?,?)}");
@@ -219,7 +220,7 @@ public class TipoProductoController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     public void desactivarControles() {
         txtCodigoTipoProducto.setEditable(false);
         txtDescripcionProducto.setEditable(false);
@@ -242,7 +243,7 @@ public class TipoProductoController implements Initializable {
     public void setEscenarioPrincipal(Main escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
     }
-    
+
     @FXML
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnRegresar) {
