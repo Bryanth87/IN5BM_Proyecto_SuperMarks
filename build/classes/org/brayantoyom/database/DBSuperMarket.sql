@@ -62,18 +62,107 @@ create table Proveedores(
     
 );
 
+-- ----------------------------------------------
+
+create table Productos (
+    codigoProducto varchar(15) primary key,
+    descripProducto varchar(45),
+    precioUnitario decimal(10,2),
+    precioDocena decimal(10,2),
+    precioMayor decimal(10,2),
+    existencia int,
+    codigoTipoProducto int,
+    codigoProveedor int,
+    Foreign key (codigoTipoProducto) references TipoProducto(codigoTipoProducto),
+    Foreign key (codigoProveedor) references Proveedores(codigoProveedor)
+);
+
+-- ------------------------------------------------
+
+create table Empleados (
+    codigoEmpleado int primary key,
+    nombresEmpleado varchar(45),
+    apellidosEmpleado varchar(45),
+    sueldoEmpleado decimal(10,2),
+    direccionEmpleado varchar(150),
+    turnoEmpleado varchar(15),
+    codigoCargoEmpleado int,
+    Foreign key (codigoCargoEmpleado) references CargoEmpleado(codigoCargoEmpleado)
+);
+
+-- ------------------------------------------------
+
+create table Factura (
+    numeroFactura int primary key,
+    estadoFactura varchar(45),
+    totalFactura decimal(10,2),
+    fechaFactura varchar(45),
+    codigoCliente int,
+    codigoCargoEmpleado int,
+    Foreign key (codigoCliente) references Clientes(codigoCliente),
+    Foreign key (codigoCargoEmpleado) references CargoEmpleado(codigoCargoEmpleado)
+);
+
+-- ------------------------------------------------
+
+create table DetalleFactura (
+    codigoDetalleFactura int primary key,
+    precioUnitario decimal(10,2),
+    cantidadDetalleFactura int,
+    numeroFactura int,
+    codigoProducto varchar(15),
+    Foreign key (numeroFactura) references Factura(numeroFactura),
+    Foreign key (codigoProducto) references Productos(codigoProducto)
+);
+
+-- ------------------------------------------------
+
+create table DetalleCompra (
+    codigoDetalleCompra int primary key,
+    costoUnitario decimal(10,2),
+    cantidadDetallaCompra int,
+    codigoProducto varchar(15),
+    numDocumento int,
+    Foreign key (codigoProducto) references Productos(codigoProducto),
+    Foreign key (numDocumento) references Compras(numDocumento)
+);
+
+-- ------------------------------------------------
+
+create table TelefonoProveedor (
+    codigoTelefonoProveedor int primary key,
+    numeroPrincipal varchar(8),
+    numeroSecundario varchar(8),
+    observaciones varchar(45),
+    codigoProveedor int,
+    Foreign key (codigoProveedor) references Proveedores(codigoProveedor)
+);
+
+-- ------------------------------------------------
+
+create table EmailProveedor (
+    codigoEmailProveedor int primary key,
+    emailProveedor varchar(45),
+    descripcionEmailProveedor varchar(100),
+    codigoProveedor int,
+    Foreign key (codigoProveedor) references Proveedores(codigoProveedor)
+);
+
 -- ---------------------------------------------------------------------------------------------------------------------------
 
 delimiter $$
 
 create procedure sp_agregarClientes(
+
     in codeCliente int, in nombClientes varchar(50), in apeCliente varchar(50),
     in NITCli varchar(10), in teleCliente varchar(45), in direcCliente varchar(150),
     in correoCli varchar(45)
 )
 begin
+
     insert into Clientes (codigoCliente, nombresClientes, apellidosCliente, NITCliente, telefonoCliente, direccionCliente, correoCliente)
     values (codeCliente, nombClientes, apeCliente, NITCli, teleCliente, direcCliente, correoCli);
+    
 end$$
 
 delimiter ;
@@ -562,4 +651,105 @@ delimiter ;
 
 call sp_actualizarProveedores(2, 'Esteban', 'Molina', '487158', '35471', 'Zona 12', 'Freegol@gmail.com', 'Programa x', 'Si bro', 'www.Freegol.com');
 
--- ---------------------------------------------------------------------------------------------------------------------------
+-- ---------------------------- Productos -----------------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_agregarProductos(
+in codeProducto varchar(15),
+in descriProduc varchar(45), 
+in precioUni decimal(10,2), 
+in precioDoce decimal(10,2),
+in precioMay decimal(10,2), 
+in existencias int, 
+in codeTipoProducto int, 
+in codeProveedor int
+
+)
+begin
+    insert into Productos (codigoProducto, descripProducto, precioUnitario, precioDocena, precioMayor, existencia, codigoTipoProducto, codigoProveedor)
+    values (codeProducto, descriProduc, precioUni, precioDoce, precioMay, existencias, codeTipoProducto, codeProveedor);
+    
+end$$
+delimiter ;
+
+-- ----------------------------------------------------------------------------------------
+
+call sp_agregarProductos('50', 'Computadora de escritorio', 550.00, 2.00, 0.00, 50, 1, 1);
+
+-- ----------------------------------------------------------------------------------------
+
+delimiter $$
+create procedure sp_listarProductos()
+begin
+    select codigoProducto, descripProducto, precioUnitario, precioDocena, precioMayor, existencia, codigoTipoProducto, codigoProveedor from Productos;
+end$$
+delimiter ;
+
+-- ----------------------------------------------------------------------------------------
+
+call sp_listarProductos();
+
+-- ----------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_buscarProductos(in codeProducto varchar(15))
+begin
+    select * from Productos where codigoProducto = codeProducto;
+end$$
+
+delimiter ;
+
+-- ----------------------------------------------------------------------------------------
+
+call sp_buscarProductos('49');
+
+-- ----------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_actualizarProductos(
+    in codeProducto varchar(15), 
+    in descripProducto varchar(45), 
+    in precioUnitario decimal(10,2),
+    in precioDoce decimal(10,2), 
+    in precioMay decimal(10,2), 
+    in existencia int, 
+    in codeTipoProducto int, 
+    in codeProveedor int
+    )
+begin
+    update Productos
+    set
+        descripProducto = descProducto,
+        precioUnitario = precioUnitario,
+        precioDocena = precioDoce,
+        precioMayor = precioMay,
+        existencia = existencia,
+        codigoTipoProducto = codeTipoProducto,
+        codigoProveedor = codeProveedor
+    where
+        codigoProducto = codeProducto;
+end$$
+
+delimiter ;
+
+-- ----------------------------------------------------------------------------------------
+
+call sp_actualizarProductos('8791', 9.00, 12.00, 45.00, 150, 2, 2);
+
+-- ----------------------------------------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_eliminarProductos(in codeProducto varchar(15))
+begin
+    delete from Productos where codigoTipoProducto = codeProducto;
+end$$
+
+delimiter ;
+
+-- ----------------------------------------------------------------------------------------
+
+call sp_EliminarProductos('4');

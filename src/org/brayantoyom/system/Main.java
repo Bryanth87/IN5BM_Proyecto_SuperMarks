@@ -18,6 +18,7 @@ import org.brayantoyom.controller.CargoEmpleadoController;
 import org.brayantoyom.controller.ProveedoresController;
 import org.brayantoyom.controller.TipoProductoController;
 import org.brayantoyom.controller.ComprasController;
+import org.brayantoyom.controller.ProductoController;
 
 public class Main extends Application {
 
@@ -79,6 +80,16 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
+    
+        public void menuProducto() {
+        try {
+            ProductoController ProductoView = (ProductoController) cambiarEscena("ViewProductos.fxml", 924, 588);
+            ProductoView.setEscenarioPrincipal(this);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public void menuTipoProductoView() {
         try {
