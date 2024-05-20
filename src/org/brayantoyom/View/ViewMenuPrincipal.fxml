@@ -7,11 +7,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.brayantoyom.Controller.MenuPrincipalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.brayantoyom.controller.MenuPrincipalController">
    <children>
       <ImageView fitHeight="517.0" fitWidth="828.0" layoutY="2.0">
          <image>
-            <Image url="@../Images/imagen%20(3).png" />
+            <Image url="@../images/imagen%20(3).png" />
          </image>
       </ImageView>
       <MenuBar layoutY="-1.0" prefHeight="28.0" prefWidth="811.0" style="-fx-background-color: #F2A20C;">

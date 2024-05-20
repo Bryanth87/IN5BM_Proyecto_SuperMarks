@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="1138.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.brayantoyom.Controller.ClienteVistaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="1138.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.brayantoyom.controller.ClienteVistaController">
    <children>
       <ImageView fitHeight="679.0" fitWidth="1138.0">
          <image>
@@ -35,6 +35,10 @@
             <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#Editar" prefHeight="37.0" prefWidth="124.0" style="-fx-background-color: #F2A20C;" text="Editar" GridPane.rowIndex="1" />
             <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#Eliminar" prefHeight="37.0" prefWidth="124.0" style="-fx-background-color: #F2A20C;" text="Eliminar" GridPane.rowIndex="2" />
             <Button fx:id="btnReportes" mnemonicParsing="false" prefHeight="37.0" prefWidth="124.0" style="-fx-background-color: #F2A20C;" text="Reportes" GridPane.rowIndex="3" />
+            <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="29.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+            <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+            <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <TableView fx:id="tblClientes" layoutX="250.0" layoutY="373.0" prefHeight="236.0" prefWidth="803.0">

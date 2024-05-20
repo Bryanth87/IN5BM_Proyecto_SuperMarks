@@ -1,5 +1,5 @@
 
-package org.brayantoyom.Controller;
+package org.brayantoyom.controller;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -80,10 +80,10 @@ public class TipoProductoController implements Initializable {
     public ObservableList<TipoProducto> getProductos() {
         ArrayList<TipoProducto> lista = new ArrayList<>();
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_ListarTipoProducto()}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarTipoProducto()}");
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
-                lista.add(new TipoProducto(resultado.getInt("IDTipoProducto"),
+                lista.add(new TipoProducto(resultado.getInt("codigoTipoProducto"),
                         resultado.getString("descripcion")
                 ));
             }
@@ -130,7 +130,7 @@ public class TipoProductoController implements Initializable {
                 break;
             default:
                 if (tblTipoProducto.getSelectionModel().getSelectedItem() != null) {
-                    int respuesta = JOptionPane.showConfirmDialog(null, "Confirmar la eliminacion de registro",
+                    int respuesta = JOptionPane.showConfirmDialog(null, "Seguro de la eliminación de registro",
                             "Eliminar Producto", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (respuesta == JOptionPane.YES_NO_OPTION) {
                         try {
@@ -198,7 +198,7 @@ public class TipoProductoController implements Initializable {
         registro.setCodigoTipoProducto(Integer.parseInt(txtCodigoTipoProducto.getText()));
         registro.setDescripcion(txtDescripcionProducto.getText());
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_AgregarTipoProducto(?, ?)}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarTipoProducto(?, ?)}");
             procedimiento.setInt(1, registro.getCodigoTipoProducto());
             procedimiento.setString(2, registro.getDescripcion());
             procedimiento.execute();
@@ -210,7 +210,7 @@ public class TipoProductoController implements Initializable {
 
     public void actualizar() {
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_ActualizarTipoProducto(?,?)}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarTipoProducto(?,?)}");
             TipoProducto registro = (TipoProducto) tblTipoProducto.getSelectionModel().getSelectedItem();
             registro.setDescripcion(txtDescripcionProducto.getText());
             procedimiento.setInt(1, registro.getCodigoTipoProducto());

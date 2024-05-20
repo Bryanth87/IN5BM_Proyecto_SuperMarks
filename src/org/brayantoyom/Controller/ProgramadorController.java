@@ -1,5 +1,5 @@
 
-package org.brayantoyom.Controller;
+package org.brayantoyom.controller;
  
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,7 +12,7 @@ import org.brayantoyom.system.Main;
 
 public class ProgramadorController implements Initializable {
    private Main escenarioPrincipal;
-    @FXML private Button BtnHome;
+    @FXML private Button btnRegresar;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -26,7 +26,7 @@ public class ProgramadorController implements Initializable {
     
     @FXML
   public void handleButtonAction (ActionEvent event){
-        if (event.getSource() == BtnHome){
+        if (event.getSource() == btnRegresar){
         escenarioPrincipal.menuPrincipalView();
         }
     } 
