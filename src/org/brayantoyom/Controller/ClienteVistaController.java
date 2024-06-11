@@ -1,9 +1,11 @@
-package org.brayantoyom.controller;
+package org.brayantoyom.Controller;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.JOptionPane;
+import org.brayantoyom.Report.GenerarReporte;
 import org.brayantoyom.bean.Clientes;
 import org.brayantoyom.db.Conexion;
 import org.brayantoyom.system.Main;
@@ -264,6 +267,12 @@ public class ClienteVistaController implements Initializable {
             case NINGUNO:
                 break;
         }
+    }
+    
+        public void imprimirReportes(){
+        Map parametros = new HashMap();
+        parametros.put("codigoCliente", null);
+        GenerarReporte.mostrarReporte("ReporteCliente.jasper", "Reporte de los Clientes", parametros);
     }
 
     public void Actualizar() {

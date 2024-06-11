@@ -8,23 +8,23 @@ import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import org.brayantoyom.controller.ClienteVistaController;
-import org.brayantoyom.controller.MenuPrincipalController;
-import org.brayantoyom.controller.ProgramadorController;
+import org.brayantoyom.Controller.ClienteVistaController;
+import org.brayantoyom.Controller.MenuPrincipalController;
+import org.brayantoyom.Controller.ProgramadorController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import org.brayantoyom.controller.CargoEmpleadoController;
-import org.brayantoyom.controller.ProveedoresController;
-import org.brayantoyom.controller.TipoProductoController;
-import org.brayantoyom.controller.ComprasController;
-import org.brayantoyom.controller.ProductoController;
+import org.brayantoyom.Controller.CargoEmpleadoController;
+import org.brayantoyom.Controller.ProveedoresController;
+import org.brayantoyom.Controller.TipoProductoController;
+import org.brayantoyom.Controller.ComprasController;
+import org.brayantoyom.Controller.ProductoController;
 
 public class Main extends Application {
 
     private Stage escenarioPrincipal;
     private Scene escena;
-    private final String URLVIEW = "/org/brayantoyom/view/";
+    private final String URLVIEW = "/org/brayantoyom/View/";
 
     @Override
     public void start(Stage escenarioPrincipal) throws Exception {
@@ -32,7 +32,7 @@ public class Main extends Application {
         this.escenarioPrincipal.setTitle("SuperMarket");
         menuPrincipalView();
         escenarioPrincipal.show();
-        FXMLLoader.load(getClass().getResource("/org/brayantoyom/view/ViewMenuPrincipal.fxml"));
+        FXMLLoader.load(getClass().getResource("/org/brayantoyom/View/ViewMenuPrincipal.fxml"));
 
     }
 

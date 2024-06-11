@@ -1,4 +1,4 @@
-package org.brayantoyom.controller;
+package org.brayantoyom.Controller;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
