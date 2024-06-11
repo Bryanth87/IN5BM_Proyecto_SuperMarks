@@ -1,4 +1,3 @@
-
 package org.brayantoyom.Controller;
 
 import java.net.URL;
@@ -105,13 +104,13 @@ public class ProductoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarDatos();
-        cmbcodigoTipoProducto.setItems(getTipoProductos());
-        cmbcodigoProveedor.setItems(getProveedores());
+        cmbcodigoTipoProducto.setItems(getTipoProducto());
+        cmbcodigoProveedor.setItems(getProveedor());
     }
 
     public void cargarDatos() {
         tblProductos.setItems(getProductos());
-        colcodigoProducto.setCellValueFactory(new PropertyValueFactory<Productos, String>("codigotProducto"));
+        colcodigoProducto.setCellValueFactory(new PropertyValueFactory<Productos, String>("codigoProducto"));
         colDescripProducto.setCellValueFactory(new PropertyValueFactory<Productos, String>("descripProducto"));
         colPrecioUnitario.setCellValueFactory(new PropertyValueFactory<Productos, Double>("precioUnitario"));
         colPrecioDocena.setCellValueFactory(new PropertyValueFactory<Productos, Double>("precioDocena"));
@@ -120,7 +119,7 @@ public class ProductoController implements Initializable {
         colcodigoTipoProducto.setCellValueFactory(new PropertyValueFactory<Productos, Integer>("codigoTipoProducto"));
         colcodigoProveedor.setCellValueFactory(new PropertyValueFactory<Productos, Integer>("codigoProveedor"));
     }
-
+    
     public void seleccionarElementos() {
         txtcodigoProducto.setText((((Productos) tblProductos.getSelectionModel().getSelectedItem()).getCodigoProducto()));
         txtDescProducto.setText((((Productos) tblProductos.getSelectionModel().getSelectedItem()).getDescripProducto()));
@@ -177,14 +176,14 @@ public class ProductoController implements Initializable {
     public ObservableList<Productos> getProductos() {
         ArrayList<Productos> lista = new ArrayList<Productos>();
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarProductos()}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarTipoProducto()}");
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
                 lista.add(new Productos(resultado.getString("codigoProducto"),
                         resultado.getString("descripcProducto"),
                         resultado.getDouble("precioUnitario"),
                         resultado.getDouble("precioDocena"),
-                        resultado.getDouble("existencia"),
+                        resultado.getDouble("precioMayor"),
                         resultado.getInt("existencia"),
                         resultado.getInt("codigoTipoProducto"),
                         resultado.getInt("codigoProveedor")
@@ -196,7 +195,7 @@ public class ProductoController implements Initializable {
         return listaProductos = FXCollections.observableList(lista);
     }
     
-    public ObservableList<TipoProducto> getTipoProductos() {
+    public ObservableList<TipoProducto> getTipoProducto() {
         ArrayList<TipoProducto> lista = new ArrayList<>();
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarTipoProducto()}");
@@ -212,7 +211,7 @@ public class ProductoController implements Initializable {
         return listaTipoProducto = FXCollections.observableList(lista);
     }
 
-    public ObservableList<Proveedores> getProveedores() {
+    public ObservableList<Proveedores> getProveedor() {
         ArrayList<Proveedores> lista = new ArrayList<>();
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarProveedores()}");
@@ -265,10 +264,9 @@ public class ProductoController implements Initializable {
         txtPrecioDocena.clear();
         txtPrecioMayor.clear();
         txtExistencia.clear();
-        tblProductos.getSelectionModel().getSelectedItem();
-        cmbcodigoTipoProducto.getSelectionModel().getSelectedItem();
-        cmbcodigoProveedor.getSelectionModel().getSelectedItem();
-
+        tblProductos.getSelectionModel().clearSelection();
+        cmbcodigoTipoProducto.getSelectionModel().clearSelection();
+        cmbcodigoProveedor.getSelectionModel().clearSelection();
     }
 
     @FXML
@@ -307,7 +305,7 @@ public class ProductoController implements Initializable {
         registro.setCodigoTipoProducto((((TipoProducto) cmbcodigoTipoProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto()));
         registro.setCodigoProveedor(((Proveedores) cmbcodigoProveedor.getSelectionModel().getSelectedItem()).getCodigoProveedor());
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{Call sp_agregarProductos(?,?,?,?,?,?,?,?)}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarProductos(?,?,?,?,?,?,?,?)}");
             procedimiento.setString(1, registro.getCodigoProducto());
             procedimiento.setString(2, registro.getDescripProducto());
             procedimiento.setDouble(3, registro.getPrecioUnitario());
@@ -325,7 +323,7 @@ public class ProductoController implements Initializable {
     
     public void Actualizar() {
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_ActualizarProductos(?,?,?,?,?,?,?,?)}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarProductos(?,?,?,?,?,?,?,?)}");
             Productos registro = (Productos) tblProductos.getSelectionModel().getSelectedItem();
             registro.setDescripProducto(txtDescProducto.getText());
             registro.setPrecioUnitario(Double.parseDouble(txtPrecioUnitario.getText()));
@@ -349,6 +347,7 @@ public class ProductoController implements Initializable {
     }
 
     @FXML
+    
     private void Editar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:

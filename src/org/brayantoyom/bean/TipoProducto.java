@@ -8,10 +8,9 @@ public class TipoProducto {
     public TipoProducto() {
     }
 
-    public TipoProducto(int IDTipoProducto, String descripcion) {
+    public TipoProducto(int codigoTipoProducto, String descripcion) {
         this.codigoTipoProducto = codigoTipoProducto;
         this.descripcion = descripcion;
-
     }
 
     public int getCodigoTipoProducto() {

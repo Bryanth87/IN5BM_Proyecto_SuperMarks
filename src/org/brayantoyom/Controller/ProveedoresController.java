@@ -124,7 +124,7 @@ public class ProveedoresController implements Initializable{
         tblProveedores.setItems(getProveedores());
         colCodigoProveedor.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("codigoProveedor"));
         colNombresProveedor.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("nombresProveedor"));
-        colApellidosProveedor.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("apellidosProveedor"));
+        colApellidosProveedor.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("apellidosProveedor"));    
         colNITProveedor.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("NITProveedor"));
         colTelefonoProveedor.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("telefonoProveedor"));
         colDireccionProveedor.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("direccionProveedor"));
@@ -267,6 +267,7 @@ public class ProveedoresController implements Initializable{
                 btnEliminar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
             case NINGUNO:
+                imprimirReportes();
                 break;
         }
     }

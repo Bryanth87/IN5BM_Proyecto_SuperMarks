@@ -265,6 +265,7 @@ public class ClienteVistaController implements Initializable {
                 btnEliminar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
             case NINGUNO:
+                imprimirReportes();
                 break;
         }
     }

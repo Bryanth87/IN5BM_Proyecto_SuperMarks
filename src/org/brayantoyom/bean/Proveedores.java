@@ -16,7 +16,7 @@ public class Proveedores {
     public Proveedores() {
     }
 
-    public Proveedores(int IDProveedor, String nombresProveedor, String apellidosProveedor, String NITProveedor, String telefonoProveedor, String direccionProveedor, String correoProveedor, String razonSocial, String contactoPrincipal, String paginaWeb) {
+    public Proveedores(int codigoProveedor, String nombresProveedor, String apellidosProveedor, String NITProveedor, String telefonoProveedor, String direccionProveedor, String correoProveedor, String razonSocial, String contactoPrincipal, String paginaWeb) {
         this.codigoProveedor = codigoProveedor;
         this.nombresProveedor = nombresProveedor;
         this.apellidosProveedor = apellidosProveedor;
