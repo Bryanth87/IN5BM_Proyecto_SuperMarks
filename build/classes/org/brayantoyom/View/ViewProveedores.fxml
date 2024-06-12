@@ -16,7 +16,7 @@
    <children>
       <ImageView fitHeight="684.0" fitWidth="1036.0" layoutX="-7.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/Proveedores.png" />
+            <Image url="@../Images/Proveedores.png" />
          </image>
       </ImageView>
       <GridPane layoutX="55.0" layoutY="129.0" prefHeight="154.0" prefWidth="401.0">
@@ -29,19 +29,16 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <TextField fx:id="txtCodigoProveedor" GridPane.columnIndex="1" />
             <TextField fx:id="txtNITProveedor" prefHeight="25.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="txtNombresProveedor" prefHeight="25.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtTelefonoProveedor" prefHeight="25.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="txtApellidosProveedor" prefHeight="25.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="codigoProveedor" />
             <Label text="nombresProveedor" GridPane.rowIndex="1" />
             <Label text="apellidosProveedor" GridPane.rowIndex="2" />
             <Label text="NITProveedor" GridPane.rowIndex="3" />
-            <Label text="telefonoProveedor" GridPane.rowIndex="4" />
          </children>
       </GridPane>
       <GridPane layoutX="491.0" layoutY="122.0" prefHeight="154.0" prefWidth="401.0">
@@ -54,33 +51,28 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <TextField fx:id="txtDireccionProveedor" GridPane.columnIndex="1" />
-            <TextField fx:id="txtContactoPrincipal" prefHeight="25.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="txtCorreoProveedor" prefHeight="25.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtPaginaWeb" prefHeight="25.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="txtRazonSocial" prefHeight="25.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtContactoPrincipal" prefHeight="25.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtPaginaWeb" prefHeight="25.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtRazonSocial" prefHeight="25.0" prefWidth="87.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="direccionProveedor" />
-            <Label text="correoProveedor" GridPane.rowIndex="1" />
-            <Label text="razonSocial" GridPane.rowIndex="2" />
-            <Label text="contactoPrincipal" GridPane.rowIndex="3" />
-            <Label text="paginaWeb" GridPane.rowIndex="4" />
+            <Label text="razonSocial" GridPane.rowIndex="1" />
+            <Label text="contactoPrincipal" GridPane.rowIndex="2" />
+            <Label text="paginaWeb" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <TableView fx:id="tblProveedores" layoutX="183.0" layoutY="295.0" prefHeight="238.0" prefWidth="774.0">
         <columns>
-          <TableColumn fx:id="colCodigoProveedor" prefWidth="75.0" text="codigoProveedor" />
-          <TableColumn fx:id="colNombresProveedor" prefWidth="75.0" text="nombresProveedor" />
-            <TableColumn fx:id="colApellidosProveedor" prefWidth="75.0" text="apellidosProveedor" />
-            <TableColumn fx:id="colNITProveedor" prefWidth="75.0" text="NITProveedor" />
-            <TableColumn fx:id="colTelefonoProveedor" prefWidth="75.0" text="telefonoProveedor" />
-            <TableColumn fx:id="colDireccionProveedor" prefWidth="75.0" text="direccionProveedor" />
-            <TableColumn fx:id="colCorreoProveedor" prefWidth="75.0" text="correoProveedor" />
-            <TableColumn fx:id="colRazonSocial" prefWidth="75.0" text="razonSocial" />
-            <TableColumn fx:id="colContactoPrincipal" prefWidth="75.0" text="contactoPrincipal" />
-            <TableColumn fx:id="colPaginaWeb" prefWidth="98.0" text="paginaWeb" />
+          <TableColumn fx:id="colCodigoProveedor" prefWidth="103.0" text="codigoProveedor" />
+          <TableColumn fx:id="colNombresProveedor" prefWidth="86.0" text="nombresProveedor" />
+            <TableColumn fx:id="colApellidosProveedor" prefWidth="101.0" text="apellidosProveedor" />
+            <TableColumn fx:id="colNITProveedor" prefWidth="95.0" text="NITProveedor" />
+            <TableColumn fx:id="colDireccionProveedor" prefWidth="115.0" text="direccionProveedor" />
+            <TableColumn fx:id="colRazonSocial" prefWidth="82.0" text="razonSocial" />
+            <TableColumn fx:id="colContactoPrincipal" prefWidth="106.0" text="contactoPrincipal" />
+            <TableColumn fx:id="colPaginaWeb" prefWidth="85.0" text="paginaWeb" />
         </columns>
       </TableView>
       <GridPane layoutX="47.0" layoutY="338.0" prefHeight="195.0" prefWidth="130.0">

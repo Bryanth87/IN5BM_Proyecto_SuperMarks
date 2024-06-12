@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="1138.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.brayantoyom.controller.ClienteVistaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="1138.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.brayantoyom.Controller.ClienteVistaController">
    <children>
       <ImageView fitHeight="679.0" fitWidth="1138.0">
          <image>
-            <Image url="@../images/CLIENTES.png" />
+            <Image url="@../Images/CLIENTES.png" />
          </image>
       </ImageView>
       <GridPane layoutX="69.0" layoutY="352.0" prefHeight="269.0" prefWidth="186.0">
@@ -47,8 +47,8 @@
             <TableColumn fx:id="colNombreCliente" prefWidth="110.0" text="nombreCliente" />
             <TableColumn fx:id="colApellidoCliente" prefWidth="110.0" text="apellidoCliente" />
             <TableColumn fx:id="colNitCliente" prefWidth="110.0" text="nitCliente" />
-            <TableColumn fx:id="colDireccionCliente" prefWidth="110.0" text="direccionCliente" />
-            <TableColumn fx:id="colTelefonoCliente" prefWidth="123.0" text="telefonoCliente" />
+            <TableColumn fx:id="colTelefonoCliente" prefWidth="110.0" text="telefonoCliente" />
+            <TableColumn fx:id="colDireccionCliente" prefWidth="123.0" text="direccionCliente" />
             <TableColumn fx:id="colCorreoCliente" prefWidth="129.0" text="correoCliente" />
          </columns>
       </TableView>

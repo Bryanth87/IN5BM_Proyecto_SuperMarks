@@ -113,8 +113,8 @@ public class ClienteVistaController implements Initializable {
 
     public void seleccionarElementos() {
         txtCodigoCliente.setText(String.valueOf(((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getCodigoCliente()));
-        txtNombreCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getNombresCliente()));
-        txtApellidoCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getNombresCliente()));
+        txtNombreCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getNombresClientes()));
+        txtApellidoCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getNombresClientes()));
         txtNitCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getNITCliente()));
         txtTelefonoCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getTelefonoCliente()));
         txtDireccionCliente.setText((((Clientes) tblClientes.getSelectionModel().getSelectedItem()).getDireccionCliente()));
@@ -170,7 +170,7 @@ public class ClienteVistaController implements Initializable {
     public void Guardar() {
         Clientes registro = new Clientes();
         registro.setCodigoCliente(Integer.parseInt(txtCodigoCliente.getText()));
-        registro.setNombresCliente(txtNombreCliente.getText());
+        registro.setNombresClientes(txtNombreCliente.getText());
         registro.setApellidosCliente(txtApellidoCliente.getText());
         registro.setNITCliente(txtNitCliente.getText());
         registro.setTelefonoCliente(txtTelefonoCliente.getText());
@@ -179,7 +179,7 @@ public class ClienteVistaController implements Initializable {
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarClientes(?, ?, ?, ?, ?, ?, ?)}");
             procedimiento.setInt(1, registro.getCodigoCliente());
-            procedimiento.setString(2, registro.getNombresCliente());
+            procedimiento.setString(2, registro.getNombresClientes());
             procedimiento.setString(3, registro.getApellidosCliente());
             procedimiento.setString(4, registro.getNITCliente());
             procedimiento.setString(5, registro.getTelefonoCliente());
@@ -280,14 +280,14 @@ public class ClienteVistaController implements Initializable {
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarClientes(?,?,?,?,?,?,?)}");
             Clientes registro = (Clientes) tblClientes.getSelectionModel().getSelectedItem();
-            registro.setNombresCliente(txtNombreCliente.getText());
+            registro.setNombresClientes(txtNombreCliente.getText());
             registro.setApellidosCliente(txtApellidoCliente.getText());
             registro.setNITCliente(txtNitCliente.getText());
             registro.setTelefonoCliente(txtTelefonoCliente.getText());
             registro.setDireccionCliente(txtDireccionCliente.getText());
             registro.setCorreoCliente(txtCorreoCliente.getText());
             procedimiento.setInt(1, registro.getCodigoCliente());
-            procedimiento.setString(2, registro.getNombresCliente());
+            procedimiento.setString(2, registro.getNombresClientes());
             procedimiento.setString(3, registro.getApellidosCliente());
             procedimiento.setString(4, registro.getNITCliente());
             procedimiento.setString(5, registro.getTelefonoCliente());
