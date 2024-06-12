@@ -34,7 +34,7 @@
             <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#Agregar" prefHeight="37.0" prefWidth="124.0" style="-fx-background-color: #F2A20C;" text="Agregar" />
             <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#Editar" prefHeight="37.0" prefWidth="124.0" style="-fx-background-color: #F2A20C;" text="Editar" GridPane.rowIndex="1" />
             <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#Eliminar" prefHeight="37.0" prefWidth="124.0" style="-fx-background-color: #F2A20C;" text="Eliminar" GridPane.rowIndex="2" />
-            <Button fx:id="btnReportes" mnemonicParsing="false" prefHeight="37.0" prefWidth="124.0" style="-fx-background-color: #F2A20C;" text="Reportes" GridPane.rowIndex="3" />
+            <Button fx:id="btnReportes" mnemonicParsing="false" onAction="#Reporte" prefHeight="37.0" prefWidth="124.0" style="-fx-background-color: #F2A20C;" text="Reportes" GridPane.rowIndex="3" />
             <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fitHeight="29.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
             <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />

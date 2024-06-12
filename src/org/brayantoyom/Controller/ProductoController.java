@@ -4,6 +4,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.JOptionPane;
+import org.brayantoyom.Report.GenerarReporte;
 import org.brayantoyom.bean.Productos;
 import org.brayantoyom.bean.Proveedores;
 import org.brayantoyom.bean.TipoProducto;
@@ -197,7 +200,7 @@ public class ProductoController implements Initializable {
     public ObservableList<TipoProducto> getTipoProducto() {
         ArrayList<TipoProducto> lista = new ArrayList<>();
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarTipoProductos()}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarTipoProducto()}");
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
                 lista.add(new TipoProducto(resultado.getInt("codigoTipoProducto"), resultado.getString("descripcion")));
@@ -208,56 +211,74 @@ public class ProductoController implements Initializable {
         return listaTipoProducto = FXCollections.observableList(lista);
     }
 
-    public void Agregar() {
-        switch (tipoDeOperaciones) {
-            case NINGUNO:
-                activarControles();
-                btnAgregar.setText("Guardar");
-                btnEliminar.setText("Cancelar");
-                btnEditar.setDisable(true);
-                btnReporte.setDisable(true);
-                tipoDeOperaciones = operaciones.ACTUALIZAR;
-                break;
-            case ACTUALIZAR:
+public void Agregar() {
+    switch (tipoDeOperaciones) {
+        case NINGUNO:
+            activarControles();
+            limpiarControles();
+            btnAgregar.setText("Guardar");
+            btnEliminar.setText("Cancelar");
+            btnEditar.setDisable(true);
+            btnReporte.setDisable(true);
+            tipoDeOperaciones = operaciones.ACTUALIZAR;
+            break;
+        case ACTUALIZAR:
+            if (validarEntradas()) {
                 Guardar();
                 desactivarControles();
-                cargarDatos();
                 limpiarControles();
+                cargarDatos();
                 btnAgregar.setText("Agregar");
                 btnEliminar.setText("Eliminar");
                 btnEditar.setDisable(false);
                 btnReporte.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
-                break;
-        }
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.");
+            }
+            break;
     }
+}
 
-    public void Guardar() {
-        Productos registro = new Productos();
-        registro.setCodigoProducto(txtCodigoProducto.getText());
-        registro.setDescripcionProducto(txtDescProducto.getText());
-        registro.setPrecioUnitario(Double.parseDouble(txtPrecioUnitario.getText()));
-        registro.setPrecioDocena(Double.parseDouble(txtPrecioDocena.getText()));
-        registro.setPrecioMayor(Double.parseDouble(txtPrecioMayor.getText()));
-        registro.setExistencia(Integer.parseInt(txtExistencias.getText()));
-        registro.setCodigoTipoProducto(((TipoProducto) cmbCodigoTipoProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto());
-        registro.setCodigoProveedor(((Proveedores) cmbCodProveedor.getSelectionModel().getSelectedItem()).getCodigoProveedor());
-        try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarProductos(?,?,?,?,?,?,?,?)}");
-            procedimiento.setString(1, registro.getCodigoProducto());
-            procedimiento.setString(2, registro.getDescripcionProducto());
-            procedimiento.setDouble(3, registro.getPrecioUnitario());
-            procedimiento.setDouble(4, registro.getPrecioDocena());
-            procedimiento.setDouble(5, registro.getPrecioMayor());
-            procedimiento.setInt(6, registro.getExistencia());
-            procedimiento.setInt(7, registro.getCodigoTipoProducto());
-            procedimiento.setInt(8, registro.getCodigoProveedor());
-            procedimiento.execute();
-            listaProductos.add(registro);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+private boolean validarEntradas() {
+    return !txtCodigoProducto.getText().isEmpty() &&
+           !txtDescProducto.getText().isEmpty() &&
+           !txtPrecioUnitario.getText().isEmpty() &&
+           !txtPrecioDocena.getText().isEmpty() &&
+           !txtPrecioMayor.getText().isEmpty() &&
+           !txtExistencias.getText().isEmpty() &&
+           cmbCodigoTipoProducto.getSelectionModel().getSelectedItem() != null &&
+           cmbCodProveedor.getSelectionModel().getSelectedItem() != null;
+}
+
+   public void Guardar() {
+    Productos registro = new Productos();
+    registro.setCodigoProducto(txtCodigoProducto.getText());
+    registro.setDescripcionProducto(txtDescProducto.getText());
+    registro.setPrecioUnitario(Double.parseDouble(txtPrecioUnitario.getText()));
+    registro.setPrecioDocena(Double.parseDouble(txtPrecioDocena.getText()));
+    registro.setPrecioMayor(Double.parseDouble(txtPrecioMayor.getText()));
+    registro.setExistencia(Integer.parseInt(txtExistencias.getText()));
+    registro.setCodigoTipoProducto(((TipoProducto) cmbCodigoTipoProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto());
+    registro.setCodigoProveedor(((Proveedores) cmbCodProveedor.getSelectionModel().getSelectedItem()).getCodigoProveedor());
+    try {
+        PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarProductos(?,?,?,?,?,?,?,?)}");
+        procedimiento.setString(1, registro.getCodigoProducto());
+        procedimiento.setString(2, registro.getDescripcionProducto());
+        procedimiento.setDouble(3, registro.getPrecioUnitario());
+        procedimiento.setDouble(4, registro.getPrecioDocena());
+        procedimiento.setDouble(5, registro.getPrecioMayor());
+        procedimiento.setInt(6, registro.getExistencia());
+        procedimiento.setInt(7, registro.getCodigoTipoProducto());
+        procedimiento.setInt(8, registro.getCodigoProveedor());
+        procedimiento.execute();
+        listaProductos.add(registro);
+        System.out.println("Producto agregado: " + registro);
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
+
 
     public void Eliminar() {
         if (tipoDeOperaciones == operaciones.ACTUALIZAR) {
@@ -292,6 +313,7 @@ public class ProductoController implements Initializable {
     public void Reporte() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
+                imprimirReportes();
                 break;
             case ACTUALIZAR:
                 desactivarControles();
@@ -303,6 +325,12 @@ public class ProductoController implements Initializable {
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
         }
+    }
+    
+        public void imprimirReportes(){
+        Map parametros = new HashMap();
+        parametros.put("codigoCliente", null);
+        GenerarReporte.mostrarReporte("ReporteProducto.jasper", "Reporte de los Productos", parametros);
     }
 
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCliente" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2683f75-6ff8-4f45-9996-3d5adb9f1618">
-	<property name="ireport.zoom" value="1.1000000000000014"/>
+	<property name="ireport.zoom" value="1.610510000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="798"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[call sp_listarClientes]]>
 	</queryString>
@@ -30,8 +30,8 @@
 	<background>
 		<band height="802" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="0" width="555" height="802" uuid="4609a4c6-ddef-4268-af30-edac0ada299b"/>
-				<imageExpression><![CDATA["C:\\Users\\Informatica\\Desktop\\Repositorio-2023014\\IN5BM_Proyecto_SuperMarks\\src\\org\\brayantoyom\\Images\\FacturaReporteCliente.png"]]></imageExpression>
+				<reportElement x="0" y="-1" width="555" height="802" uuid="bdde0c01-23df-40c8-a50a-01e7c6ae317f"/>
+				<imageExpression><![CDATA["C:\\Users\\PC_01\\Desktop\\Casa_2023014\\IN5BM_Proyecto_SuperMarks\\src\\org\\brayantoyom\\Images\\FacturaReporteCliente.png"]]></imageExpression>
 			</image>
 		</band>
 	</background>
@@ -42,13 +42,43 @@
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="121" splitType="Stretch">
+		<band height="123" splitType="Stretch">
 			<staticText>
 				<reportElement x="39" y="94" width="100" height="20" uuid="4b1be519-9326-4bcd-8278-c3c79c8fa232"/>
 				<text><![CDATA[codigoCliente]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="114" width="555" height="1" uuid="bb0d348b-51be-4ee6-a201-15da8f57b4ae"/>
+			</line>
+			<staticText>
+				<reportElement x="188" y="94" width="100" height="20" uuid="cf8b49f1-bfc3-414c-9841-9fbf752a8434"/>
+				<text><![CDATA[NITCliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="94" width="100" height="20" uuid="13dca858-01c3-419b-a417-5c231ced4a2d"/>
+				<text><![CDATA[nombresClientes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="94" width="100" height="20" uuid="ac928f40-074f-441b-ad16-04ffc796442b"/>
+				<text><![CDATA[telefonoCliente]]></text>
+			</staticText>
+			<line>
+				<reportElement x="163" y="94" width="1" height="17" uuid="4ed6940a-52c4-4a11-9f76-e088bb1bd46e"/>
+			</line>
+			<line>
+				<reportElement x="311" y="94" width="1" height="17" uuid="915e6bd2-b78c-468c-a0f8-3eaee889f169"/>
+			</line>
+			<line>
+				<reportElement x="442" y="94" width="1" height="17" uuid="7822c645-a3ea-4899-b67f-8b61c93501ac"/>
+			</line>
+			<line>
+				<reportElement x="554" y="94" width="1" height="17" uuid="59ee4b14-4f64-4c74-9f12-a9423ba94994"/>
+			</line>
+			<line>
+				<reportElement x="0" y="94" width="1" height="17" uuid="38829cef-385e-47ff-bd00-7b2eadc55555"/>
+			</line>
+			<line>
+				<reportElement x="1" y="93" width="555" height="1" uuid="a966bc11-6ee0-4b9a-b1d5-fb338888333f"/>
 			</line>
 		</band>
 	</columnHeader>
@@ -60,6 +90,39 @@
 			</textField>
 			<line>
 				<reportElement x="0" y="20" width="555" height="1" uuid="75a4c934-9164-4dce-b9a3-cb18b49f97a0"/>
+			</line>
+			<textField>
+				<reportElement x="188" y="0" width="100" height="20" uuid="fd381337-9ba0-4b2f-a56f-84ad280e5238"/>
+				<textFieldExpression><![CDATA[$F{NITCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="331" y="1" width="100" height="20" uuid="f126fcf2-faba-455b-974b-13945558193b"/>
+				<textFieldExpression><![CDATA[$F{nombresClientes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="1" width="100" height="20" uuid="57256ecb-8b43-4f12-bd47-6cb56f47b3e2"/>
+				<textFieldExpression><![CDATA[$F{telefonoCliente}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="3" width="1" height="17" uuid="7e6c73ac-0575-4a15-86c2-d5e87f09b19a"/>
+			</line>
+			<line>
+				<reportElement x="163" y="4" width="1" height="17" uuid="54dfcbeb-179c-43a5-88fc-4c8d5d399899"/>
+			</line>
+			<line>
+				<reportElement x="312" y="4" width="1" height="17" uuid="7396d1ba-1779-40ce-958c-71f05327ba4b"/>
+			</line>
+			<line>
+				<reportElement x="442" y="4" width="1" height="17" uuid="ac27c2c4-4864-46a3-b015-92e6b45f1af1"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="71" width="555" height="1" uuid="180bdef1-5ffb-43ea-8dfc-230b97bcde25"/>
+			</line>
+			<line>
+				<reportElement x="555" y="3" width="1" height="17" uuid="ad7edd8c-7c0b-469d-84ca-088e5c61e2a6"/>
+			</line>
+			<line>
+				<reportElement x="1" y="1" width="555" height="1" uuid="6c8ffefe-4b95-47a6-bf64-3c60cfe4432d"/>
 			</line>
 		</band>
 	</detail>

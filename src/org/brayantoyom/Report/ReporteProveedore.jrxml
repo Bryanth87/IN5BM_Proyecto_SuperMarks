@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteProveedore" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e3bf24c0-ef93-4e5d-b18a-090aead48504">
-	<property name="ireport.zoom" value="1.2100000000000009"/>
+	<property name="ireport.zoom" value="1.7715610000000037"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="32"/>
+	<property name="ireport.y" value="445"/>
 	<queryString>
 		<![CDATA[call sp_listarProveedores]]>
 	</queryString>
 	<field name="codigoProveedor" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NITProveedor" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="nombresProveedor" class="java.lang.String">
@@ -15,16 +18,7 @@
 	<field name="apellidosProveedor" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="NITProveedor" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="telefonoProveedor" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="direccionProveedor" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="correoProveedor" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="razonSocial" class="java.lang.String">
@@ -39,8 +33,8 @@
 	<background>
 		<band height="802" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="0" width="555" height="802" uuid="d4973d8c-803f-456a-9008-b3fd834ffe12"/>
-				<imageExpression><![CDATA["C:\\Users\\Informatica\\Desktop\\Repositorio-2023014\\IN5BM_Proyecto_SuperMarks\\src\\org\\brayantoyom\\Images\\FacturaReporteProveedor.png"]]></imageExpression>
+				<reportElement x="0" y="-1" width="555" height="802" uuid="658e3372-1cf1-4e2f-a448-72632029948e"/>
+				<imageExpression><![CDATA["C:\\Users\\PC_01\\Desktop\\Casa_2023014\\IN5BM_Proyecto_SuperMarks\\src\\org\\brayantoyom\\Images\\FacturaReporteProveedor.png"]]></imageExpression>
 			</image>
 		</band>
 	</background>
@@ -48,7 +42,7 @@
 		<band height="79" splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="86" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="131" splitType="Stretch">
@@ -59,10 +53,40 @@
 			<line>
 				<reportElement x="0" y="123" width="555" height="1" uuid="1b485bd0-d93a-4ea3-a9f0-7b0e06a7ae2b"/>
 			</line>
+			<staticText>
+				<reportElement x="312" y="103" width="100" height="20" uuid="e5983e7a-ea11-435a-ac08-2853d55c9ed8"/>
+				<text><![CDATA[direccionProveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="103" width="100" height="20" uuid="28b0d5ee-5585-40b0-9ccc-3889b644db5a"/>
+				<text><![CDATA[nombresProveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="103" width="100" height="20" uuid="7c1d66aa-565f-44a4-b523-0d3407c79dc9"/>
+				<text><![CDATA[paginaWeb]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="102" width="555" height="1" uuid="e28a5514-c4ba-4e10-92da-d163f647b04a"/>
+			</line>
+			<line>
+				<reportElement x="135" y="105" width="1" height="18" uuid="620e1be3-5aab-444f-b819-4ad1867bbbff"/>
+			</line>
+			<line>
+				<reportElement x="282" y="103" width="1" height="18" uuid="520835c2-6ded-4898-9295-70eadc8d7bf0"/>
+			</line>
+			<line>
+				<reportElement x="554" y="102" width="1" height="18" uuid="0330ffa6-d937-4144-8e73-e9e77d80229d"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="103" width="1" height="18" uuid="d1a330bb-97f1-490a-8878-80f3b47be784"/>
+			</line>
+			<line>
+				<reportElement x="430" y="102" width="1" height="18" uuid="2a9c6263-28a9-47a4-befa-6302953cb600"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="36" splitType="Stretch">
+		<band height="33" splitType="Stretch">
 			<textField>
 				<reportElement x="24" y="0" width="100" height="20" uuid="a43f6375-a1d2-4bfe-a758-08e03b118991"/>
 				<textFieldExpression><![CDATA[$F{codigoProveedor}]]></textFieldExpression>
@@ -70,13 +94,47 @@
 			<line>
 				<reportElement x="0" y="20" width="555" height="1" uuid="1c584757-c741-4627-8fc0-0b11bf7d2991"/>
 			</line>
+			<textField>
+				<reportElement x="155" y="0" width="100" height="20" uuid="867aad34-9ed7-4ba2-bd5a-9d00d74fe234"/>
+				<textFieldExpression><![CDATA[$F{nombresProveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="312" y="0" width="100" height="20" uuid="2ae838d0-6351-483f-a9d3-910168addb2d"/>
+				<textFieldExpression><![CDATA[$F{direccionProveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="78201de0-84f7-4fcd-9950-990cecc7af1d"/>
+				<textFieldExpression><![CDATA[$F{paginaWeb}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="283" y="0" width="1" height="18" uuid="26015ff1-f3df-43f4-8d49-9902b4e0ebc7"/>
+			</line>
+			<line>
+				<reportElement x="134" y="0" width="1" height="18" uuid="667a4b47-4323-4fcb-bdb2-bf1bb2d44c68"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="18" uuid="fdaca44a-3d53-4103-8df9-2f271918032f"/>
+			</line>
+			<line>
+				<reportElement x="553" y="3" width="1" height="18" uuid="09dcfc04-8f4e-4178-b068-58cb9abbd27f"/>
+			</line>
+			<line>
+				<reportElement x="431" y="0" width="1" height="18" uuid="94058a1a-32a8-4ce7-a9de-44ece9d91ca4"/>
+			</line>
+			<line>
+				<reportElement x="1" y="0" width="555" height="1" uuid="e1e6cc5d-c91f-4ef1-a52b-ccbe685842d9"/>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="13" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="c5fdc7bf-cb8a-488b-acce-c3bb1fd444b3"/>
+			</line>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

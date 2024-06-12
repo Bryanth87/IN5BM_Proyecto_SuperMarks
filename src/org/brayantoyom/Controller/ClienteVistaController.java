@@ -262,7 +262,7 @@ public class ClienteVistaController implements Initializable {
                 btnReportes.setText("Reporte");
                 btnEditar.setText("Editar");
                 btnAgregar.setDisable(false);
-                btnEliminar.setDisable(false);
+                btnEliminar.setDisable(false); 
                 tipoDeOperaciones = operaciones.NINGUNO;
             case NINGUNO:
                 imprimirReportes();

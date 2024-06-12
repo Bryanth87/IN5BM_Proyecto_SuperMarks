@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/org/brayantoyom/View/ViewProveedores.fxml</url>
+            <bookmark id="1">
+                <name/>
+                <line>7</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Informatica/Desktop/Repositorio-2023014/IN5BM_Proyecto_SuperMarks/src/org/brayantoyom/bean/Productos.java</file>
-            <file>file:/C:/Users/Informatica/Desktop/Repositorio-2023014/IN5BM_Proyecto_SuperMarks/src/org/brayantoyom/Report/GenerarReporte.java</file>
-            <file>file:/C:/Users/Informatica/Desktop/Repositorio-2023014/IN5BM_Proyecto_SuperMarks/src/org/brayantoyom/Controller/ProgramadorController.java</file>
-            <file>file:/C:/Users/Informatica/Desktop/Repositorio-2023014/IN5BM_Proyecto_SuperMarks/src/org/brayantoyom/bean/DetalleCompra.java</file>
-            <file>file:/C:/Users/Informatica/Desktop/Repositorio-2023014/IN5BM_Proyecto_SuperMarks/src/org/brayantoyom/bean/Proveedores.java</file>
-            <file>file:/C:/Users/Informatica/Desktop/Repositorio-2023014/IN5BM_Proyecto_SuperMarks/src/org/brayantoyom/bean/TipoProducto.java</file>
-            <file>file:/C:/Users/Informatica/Desktop/Repositorio-2023014/IN5BM_Proyecto_SuperMarks/src/org/brayantoyom/Controller/ProductoController.java</file>
+            <file>file:/C:/Users/PC_01/Desktop/Casa_2023014/IN5BM_Proyecto_SuperMarks/src/org/brayantoyom/Controller/ProveedoresController.java</file>
+            <file>file:/C:/Users/PC_01/Desktop/Casa_2023014/IN5BM_Proyecto_SuperMarks/src/org/brayantoyom/Controller/ClienteVistaController.java</file>
+            <file>file:/C:/Users/PC_01/Desktop/Casa_2023014/IN5BM_Proyecto_SuperMarks/src/org/brayantoyom/bean/TipoProducto.java</file>
+            <file>file:/C:/Users/PC_01/Desktop/Casa_2023014/IN5BM_Proyecto_SuperMarks/src/org/brayantoyom/Controller/ProductoController.java</file>
         </group>
     </open-files>
 </project-private>

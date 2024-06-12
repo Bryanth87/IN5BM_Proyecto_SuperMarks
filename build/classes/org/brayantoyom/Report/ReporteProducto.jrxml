@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteProducto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce4b2182-1e2a-49df-974f-08c3ec606c45">
+	<property name="ireport.zoom" value="2.8531167061100184"/>
+	<property name="ireport.x" value="1001"/>
+	<property name="ireport.y" value="883"/>
+	<queryString>
+		<![CDATA[SELECT p.codigoProducto, p.descripcionProducto, p.precioUnitario, p.precioDocena, p.precioMayor,
+       p.existencia, tp.descripcion AS tipoProductoDescripcion, pr.nombresProveedor, pr.apellidosProveedor
+FROM Productos p
+INNER JOIN TipoProducto tp ON p.codigoTipoProducto = tp.codigoTipoProducto
+INNER JOIN Proveedores pr ON p.codigoProveedor = pr.codigoProveedor;]]>
+	</queryString>
+	<field name="codigoProducto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcionProducto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precioUnitario" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precioDocena" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precioMayor" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="existencia" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoProductoDescripcion" class="java.lang.String"/>
+	<field name="nombresProveedor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apellidosProveedor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="802" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="555" height="802" uuid="b7d0288e-c0c7-4305-a41b-4bffb478dbfe"/>
+				<imageExpression><![CDATA["C:\\Users\\PC_01\\Desktop\\Casa_2023014\\IN5BM_Proyecto_SuperMarks\\src\\org\\brayantoyom\\Images\\Reporte Productos.png"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="121" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="144" splitType="Stretch">
+			<staticText>
+				<reportElement x="18" y="104" width="100" height="20" uuid="88e15a6b-3a2a-4ab2-92dc-691ba8fe5a5c"/>
+				<text><![CDATA[codigoProducto]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="88" width="554" height="1" uuid="ec43db14-82c3-49c5-9bd5-461c111bdb39"/>
+			</line>
+			<staticText>
+				<reportElement x="148" y="104" width="100" height="20" uuid="8f6b443f-84cc-4430-b8be-680c887d02c8"/>
+				<text><![CDATA[descripcionProducto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="104" width="100" height="20" uuid="a41600d2-0e4a-4636-8453-b3f9ce256b6b"/>
+				<text><![CDATA[existencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="104" width="100" height="20" uuid="f8a38e3e-cf0c-4ffc-ac82-99553728f33d"/>
+				<text><![CDATA[precioUnitario]]></text>
+			</staticText>
+			<line>
+				<reportElement x="136" y="89" width="1" height="45" uuid="49d20ab6-b8b9-4bfd-90f2-63fc5dbf3370"/>
+			</line>
+			<line>
+				<reportElement x="271" y="88" width="1" height="45" uuid="c70ffac5-c13b-4ac7-a94c-901c2f2a96f7"/>
+			</line>
+			<line>
+				<reportElement x="0" y="88" width="1" height="45" uuid="cca96607-1511-4b22-8d90-51fd209221d6"/>
+			</line>
+			<line>
+				<reportElement x="413" y="88" width="1" height="45" uuid="95c0cef1-33dd-4812-a833-e525397773fe"/>
+			</line>
+			<line>
+				<reportElement x="555" y="90" width="1" height="45" uuid="f4ee7467-0d50-4d03-902d-6916a9bf9e39"/>
+			</line>
+			<line>
+				<reportElement x="0" y="133" width="554" height="1" uuid="d437813d-81de-41cd-b10b-6b2d4f3db38a"/>
+			</line>
+			<line>
+				<reportElement x="1" y="143" width="554" height="1" uuid="852605a9-f4a6-4b8d-8c59-eaac035b81c1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<textField>
+				<reportElement x="18" y="0" width="100" height="20" uuid="eb886b70-61b6-4b15-aa54-952f2e2dafdf"/>
+				<textFieldExpression><![CDATA[$F{codigoProducto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="148" y="0" width="100" height="20" uuid="f785784c-916a-4825-9b08-a25de98e981e"/>
+				<textFieldExpression><![CDATA[$F{descripcionProducto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="0" width="100" height="20" uuid="0e9a5bfe-1299-4034-9acc-775678bbb8b6"/>
+				<textFieldExpression><![CDATA[$F{existencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="0" width="100" height="20" uuid="723a81ef-5b99-4576-9868-e11b93202c72"/>
+				<textFieldExpression><![CDATA[$F{precioUnitario}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="24" width="553" height="1" uuid="25cdafbb-3eb3-4b52-bd4a-dd50f441ad15"/>
+			</line>
+			<line>
+				<reportElement x="270" y="0" width="1" height="25" uuid="977810b7-de28-4ef5-a8ab-263f01f88f16"/>
+			</line>
+			<line>
+				<reportElement x="412" y="0" width="1" height="25" uuid="174e7a8d-81f8-4e4d-87c9-c115986f9368"/>
+			</line>
+			<line>
+				<reportElement x="555" y="0" width="1" height="25" uuid="3dd3f7ac-a348-4ed2-89a1-bb4895821e7d"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="25" uuid="d8e225e3-e935-4977-b28f-7497b29235c8"/>
+			</line>
+			<line>
+				<reportElement x="135" y="0" width="1" height="25" uuid="92239638-353c-4e7c-b0c4-b56112ea3ee0"/>
+			</line>
+			<line>
+				<reportElement x="-2" y="50" width="554" height="1" uuid="85fd1e0f-4b82-442a-8379-a0e9da6bf74e"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

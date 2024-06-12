@@ -87,7 +87,7 @@ create table Empleados (
     direccionEmpleado varchar(150),
     turnoEmpleado varchar(15),
     codigoCargoEmpleado int,
-    Foreign key (codigoCargoEmpleado) references CargoEmpleado(codigoCargoEmpleado)
+    Foreign key (codigoCargoEmpleado) references CargoEmpleado(codigoCargoEmpleado) on delete cascade
 );
 
 -- ------------------------------------------------
@@ -99,8 +99,8 @@ create table Factura (
     fechaFactura varchar(45),
     codigoCliente int,
     codigoCargoEmpleado int,
-    Foreign key (codigoCliente) references Clientes(codigoCliente),
-    Foreign key (codigoCargoEmpleado) references CargoEmpleado(codigoCargoEmpleado)
+    Foreign key (codigoCliente) references Clientes(codigoCliente) on delete cascade,
+    Foreign key (codigoCargoEmpleado) references CargoEmpleado(codigoCargoEmpleado) on delete cascade
 );
 
 -- ------------------------------------------------
@@ -111,8 +111,8 @@ create table DetalleFactura (
     cantidadDetalleFactura int,
     numeroFactura int,
     codigoProducto varchar(15),
-    Foreign key (numeroFactura) references Factura(numeroFactura),
-    Foreign key (codigoProducto) references Productos(codigoProducto)
+    Foreign key (numeroFactura) references Factura(numeroFactura) on delete cascade,
+    Foreign key (codigoProducto) references Productos(codigoProducto)on delete cascade
 );
 
 -- ------------------------------------------------
@@ -123,8 +123,8 @@ create table DetalleCompra (
     cantidadDetallaCompra int,
     codigoProducto varchar(15),
     numDocumento int,
-    Foreign key (codigoProducto) references Productos(codigoProducto),
-    Foreign key (numDocumento) references Compras(numDocumento)
+    Foreign key (codigoProducto) references Productos(codigoProducto) on delete cascade,
+    Foreign key (numDocumento) references Compras(numDocumento) on delete cascade
 );
 
 -- ------------------------------------------------
@@ -135,7 +135,7 @@ create table TelefonoProveedor (
     numeroSecundario varchar(8),
     observaciones varchar(45),
     codigoProveedor int,
-    Foreign key (codigoProveedor) references Proveedores(codigoProveedor)
+    Foreign key (codigoProveedor) references Proveedores(codigoProveedor) on delete cascade
 );
 
 -- ------------------------------------------------
@@ -145,7 +145,7 @@ create table EmailProveedor (
     emailProveedor varchar(45),
     descripcionEmailProveedor varchar(100),
     codigoProveedor int,
-    Foreign key (codigoProveedor) references Proveedores(codigoProveedor)
+    Foreign key (codigoProveedor) references Proveedores(codigoProveedor) on delete cascade
 );
 
 -- ---------------------------------------------------------------------------------------------------------------------------
@@ -332,30 +332,27 @@ call sp_eliminarCargoEmpleado(3);
 -- ---------------------------------------------------------------------------------------------------------------------------
 
 delimiter $$
-
-create procedure sp_agregarTipoProducto(
-    in codeProducto int, in descripTipo varchar(45)
-)
+create procedure sp_agregarTipoProducto (in codTiPro int, in descri varchar(45))
 begin
-    insert into TipoProducto (codigoTipoProducto, descripcion)
-    values (codeProducto, descripTipo);
+	insert into TipoProducto (TipoProducto.codigoTipoProducto, TipoProducto.descripcion)
+    values (codTiPro, descri);
 end$$
-
 delimiter ;
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
 call sp_agregarTipoProducto(1, 'Computadoras de Corea del Sur');
+call sp_agregarTipoProducto(2, 'Computadoras de Corea del Sur');
+call sp_agregarTipoProducto(3, 'Computadoras de Corea del Sur');
+call sp_agregarTipoProducto(4, 'Computadoras de Corea del Sur');
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
 delimiter $$
-
-create procedure sp_listarTipoProducto()
-begin
-    select codigoTipoProducto, descripcion from TipoProducto;
-end$$
-
+	create procedure sp_listarTipoProducto ()
+    begin
+		select TipoProducto.codigoTipoProducto, TipoProducto.descripcion from TipoProducto;
+    end$$
 delimiter ;
 
 -- ---------------------------------------------------------------------------------------------------------------------------
@@ -366,13 +363,12 @@ call sp_listarTipoProducto();
 
 delimiter $$
 
-create procedure sp_buscarTipoProducto(in codeTipoProducto int)
-begin
-    select * from TipoProducto where codigoTipoProducto = codeTipoProducto;
-end$$
-
+	create procedure sp_buscarTipoProducto(in codTiPro int)
+    begin
+	select TipoProducto.codigoTipoProducto, TipoProducto.descripcion from TipoProducto where TipoProducto.codigoTipoProducto = codTiPro;
+	end$$
+    
 delimiter ;
-
 -- ---------------------------------------------------------------------------------------------------------------------------
 
 call sp_buscarTipoProducto(1);
@@ -381,22 +377,20 @@ call sp_buscarTipoProducto(1);
 
 delimiter $$
 
-create procedure sp_actualizarTipoProducto(
-    in codeTipoProducto int, in descripTipo varchar(45)
-)
-begin
-    update TipoProducto
-    set
-        descripcion = descripTipo
-    where
-        codigoTipoProducto = codeTipoProducto;
-end$$
-
+	create procedure sp_actualizarTipoProducto(in codTiPro int, in descri varchar(45))
+    begin
+		update TipoProducto 
+		set
+        TipoProducto.descripcion = descri
+        where 
+        TipoProducto.codigoTipoProducto = codTiPro;
+    end$$
+    
 delimiter ;
-	
 -- ---------------------------------------------------------------------------------------------------------------------------
 
-call sp_actualizarTipoProducto(2, 'Carros de Japón');
+call sp_actualizarTipoProducto(1, 'Carros de Japón');
+call sp_actualizarTipoProducto(1, 'Computadoras de Corea del Sur');
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
@@ -524,6 +518,7 @@ delimiter ;
 -- ---------------------------------------------------------------------------------------------------------------------------
 
 call sp_agregarProveedores(1,'784','Joao','Boligo','Zona 12', 'iman', 'iman@gmail.com', 'bew');
+call sp_agregarProveedores(2,'741','Felix','Boligo','Zona 12', 'iman', 'iman@gmail.com', 'bew');
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
@@ -622,6 +617,8 @@ delimiter ;
 -- ----------------------------------------------------------------------------------------
 
 call sp_agregarProductos(1, 'Computadora de escritorio', 550.00, 2.00, 300.00, 50, 1, 1);
+call sp_agregarProductos(2, 'Tablets', 150.00, 2.00, 300.00, 50, 2, 2);
+call sp_agregarProductos(3, 'Televisores', 250.00, 2.00, 300.00, 50, 3, 3);
 
 -- ----------------------------------------------------------------------------------------
 
@@ -681,7 +678,7 @@ delimiter $$
 delimiter ;
 
 
-call sp_actualizarProducto(50, 'Descripción del producto', 9.00, 12.00, 45.00, 150, 2, 2);
+call sp_actualizarProductos(50, 'Descripción del producto', 9.00, 12.00, 45.00, 150, 2, 2);
 
 -- ----------------------------------------------------------------------------------------
 
@@ -694,7 +691,7 @@ delimiter ;
 
 -- ------------------------------ ----------------------------------------------------------
 
-call sp_EliminarProductos('4');
+call sp_eliminarProductos('4');
 
 -- -----------------------Empleados------------------------------------------------------------------
 
@@ -883,141 +880,12 @@ call sp_eliminarFactura(1);
 
 -- -----------------------------------------------------------------------------------------------------------
 
-Delimiter $$
-	create function fn_CalcularPrecioUnitario(codigoProducto varchar(15)) returns decimal(10,2)
-	reads sql data deterministic
-    Begin
-		Declare precioUnitario decimal(10,2);
-        Select (DC.costoUnitario)
-        into precioUnitario 
-        from  DetalleCompra DC where DC.codigoProducto = codigoProducto;
-        
-        return precioUnitario + (precioUnitario * 0.40);
-    End $$
-Delimiter ;
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Toyom23G!!';
 
--- ---------------------------------------------------------------------------------------------------------
+-- --------------------------------------------
 
-Delimiter $$
-	create function fn_CalcularPrecioDocena(codigoProducto varchar(15)) returns decimal(10,2)
-    reads sql data deterministic
-    Begin
-		Declare precioDocena decimal(10,2);
-        Select (DC.costoUnitario)
-        into precioDocena
-        from DetalleCompra DC where DC.codigoProducto = codigoProducto;
-        return precioDocena + (precioDocena * 0.35);
-    End $$
-Delimiter ;
-
-Delimiter $$
-	create function fn_CalcularPrecioMayor(codigoProducto varchar(15)) returns decimal(10,2)
-    reads sql data deterministic
-    Begin
-		Declare precioMayor decimal(10,2);
-        Select (DC.costoUnitario)
-        into precioMayor
-        from DetalleCompra DC where DC.codigoProducto = codigoProducto;
-        return precioMayor + (precioMayor * 0.25);
-    End $$
-Delimiter ;
-Delimiter $$
-	create procedure sp_AsignarPrecios(in codigoProducto varchar(15))
-    Begin
-		Declare _precioDocena decimal(10,2);
-		Declare _precioUnitario decimal(10,2);
-        Declare _precioMayor decimal(10,2);
-        set _precioMayor = fn_CalcularPrecioMayor(codigoProducto);
-        set _precioUnitario = fn_CalcularPrecioUnitario(codigoProducto);
-        set _precioDocena = fn_CalcularPrecioDocena(codigoProducto);
-        
-        Update Productos P
-        set
-        P.precioUnitario = _precioUnitario,
-        P.precioDocena = _precioDocena,
-        P.precioMayor = _precioMayor
-        where P.codigoProducto = codigoProducto; 
-    End $$
-Delimiter ;
-
-Delimiter $$
-	Create Trigger tr_DetalleCompra_After_Update
-    After Update on DetalleCompra
-    for each row
-    Begin
-        call sp_AsignarPrecios(NEW.codigoProducto);
-    End $$
-Delimiter ;
-
-Delimiter $$
-	Create Trigger tr_DetalleCompra_After_Insert
-    After Insert on DetalleCompra
-    for each row
-    Begin
-        call sp_AsignarPrecios(NEW.codigoProducto);
-    End $$
-Delimiter ;
-
-Delimiter $$
-	create function fn_TotalCompras( numeroDocumento int)
-	returns decimal(10,2)
-    reads sql data deterministic
-    Begin
-		declare totalDocumento decimal(10,2);
-        Select SUM(DC.costoUnitario * DC.cantidad) into totalDocumento from  DetalleCompra DC where DC.numeroDocumento = numeroDocumento;
-		
-        return totalDocumento;
-	End $$
-Delimiter ;
-
-Delimiter $$
-	create procedure sp_AsignarTotalCompras(in numeroDocumento int)
-    Begin
-		Declare _totalDocumento decimal(10,2);
-        set _totalDocumento = fn_TotalCompras(numeroDocumento);
-        
-        Update Compras C
-        set
-        C.totalDocumento = _totalDocumento
-        where C.numeroDocumento = numeroDocumento; 
-    End $$
-Delimiter ;
-
-Delimiter $$
-	Create Trigger tr_DetalleComprasTotal_After_Insert
-    After Insert on DetalleCompra
-    for each row
-    Begin
-		call sp_AsignarTotalCompras(new.numeroDocumento);
-	End $$
-Delimiter ;	
-
-Delimiter $$
-	create procedure sp_AgregarExistencia(codigoProducto varchar(15),cantidad int)
-    Begin
-		update Productos P
-        set
-			P.existencia = cantidad
-		where P.codigoProducto = codigoProducto;
-    End $$
-Delimiter ;
-
-Delimiter $$
-	Create Trigger tr_DetalleCompraExistencia_After_Insert
-    After Insert on DetalleCompra
-    for each row
-    Begin
-		call sp_AgregarExistencia(NEW.codigoProducto,NEW.cantidad);
-    End $$
-Delimiter ;
-
-Delimiter $$
-	Create Trigger tr_DetalleCompraExistencia_After_Update
-    After Update on DetalleCompra
-    for each row
-    Begin
-		call sp_AgregarExistencia(NEW.codigoProducto,NEW.cantidad);
-    End $$
-Delimiter ;
-
-
+SELECT p.codigoProducto, p.descripcionProducto, p.precioUnitario, p.precioDocena, p.precioMayor, 
+       p.existencia, tp.descripcion AS tipoProductoDescripcion, pr.nombresProveedor, pr.apellidosProveedor
+FROM Productos p
+INNER JOIN TipoProducto tp ON p.codigoTipoProducto = tp.codigoTipoProducto
+INNER JOIN Proveedores pr ON p.codigoProveedor = pr.codigoProveedor;
