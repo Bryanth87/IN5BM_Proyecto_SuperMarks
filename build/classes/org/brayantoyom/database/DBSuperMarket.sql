@@ -62,18 +62,20 @@ create table Proveedores
 
 -- ----------------------------------------------
 
-create table Productos (
-    codigoProducto varchar(15) primary key,
-    descripProducto varchar(45),
+create table Productos
+(
+	codigoProducto varchar(15) primary key,
+	descripcionProducto varchar(45),
     precioUnitario decimal(10,2),
     precioDocena decimal(10,2),
     precioMayor decimal(10,2),
-    existencia int,
-    codigoTipoProducto int,
-    codigoProveedor int,
-    Foreign key (codigoTipoProducto) references TipoProducto(codigoTipoProducto),
-    Foreign key (codigoProveedor) references Proveedores(codigoProveedor)
+    existencia int not null,
+    codigoTipoProducto int not null,
+    codigoProveedor int not null,
+	foreign key (codigoTipoProducto) references TipoProducto(codigoTipoProducto) on delete cascade,
+	foreign key (codigoProveedor) references Proveedores(codigoProveedor) on delete cascade
 );
+
 
 -- ------------------------------------------------
 
@@ -521,7 +523,7 @@ delimiter ;
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
-call sp_agregarProveedores(1,'12347894-9','Carlos José','Méndez Oliva','Almacén 18 carretera al Salvador', 'aguas', 'aguas12@gmail.com', 'www.aguas.com');
+call sp_agregarProveedores(1,'784','Joao','Boligo','Zona 12', 'iman', 'iman@gmail.com', 'bew');
 
 -- ---------------------------------------------------------------------------------------------------------------------------
 
@@ -599,25 +601,22 @@ call sp_actualizarProveedores(2,'12347894-9','Carlos José','Méndez Oliva','Alm
 
 -- ---------------------------- Productos -----------------------------------------------------------------------------------------------
 
+
 delimiter $$
-
-create procedure sp_agregarProductos(
-in codeProducto varchar(15),
-in descriProduc varchar(45), 
-in precioUni decimal(10,2), 
-in precioDoce decimal(10,2),
-in precioMay decimal(10,2), 
-in existencias int, 
-in codeTipoProducto int, 
-in codeProveedor int
-
-)
-begin
-    insert into Productos (codigoProducto, descripProducto, precioUnitario, precioDocena, precioMayor, existencia, codigoTipoProducto, codigoProveedor)
-    values (codeProducto, descriProduc, precioUni, precioDoce, precioMay, existencias, codeTipoProducto, codeProveedor);
-    
-end$$
-
+create procedure sp_agregarProductos (in codPro varchar(45), 
+in desPro varchar(45), 
+in precioUniPro decimal(10,2),
+in precioDocPro decimal(10,2),									  
+in precioMaPro decimal(10,2), 
+in existencia int, 
+in codTipPro int,
+in codProvPro int )
+	begin 
+	insert into Productos (Productos.codigoProducto, Productos.descripcionProducto, Productos.precioUnitario, Productos.precioDocena,
+						   Productos.precioMayor, Productos.existencia, Productos.codigoTipoProducto, 
+                           Productos.codigoProveedor)
+    values (codPro, desPro, precioUniPro, precioDocPro, precioMaPro, existencia, codTipPro, codProvPro);
+	end$$
 delimiter ;
 
 -- ----------------------------------------------------------------------------------------
@@ -627,10 +626,13 @@ call sp_agregarProductos(1, 'Computadora de escritorio', 550.00, 2.00, 300.00, 5
 -- ----------------------------------------------------------------------------------------
 
 delimiter $$
-create procedure sp_listarProductos()
-begin
-    select codigoProducto, descripProducto, precioUnitario, precioDocena, precioMayor, existencia, codigoTipoProducto, codigoProveedor from Productos;
-end$$
+	create procedure sp_listarProductos ()
+    begin
+		select Productos.codigoProducto, Productos.descripcionProducto, Productos.precioUnitario, Productos.precioDocena,
+			   Productos.precioMayor, Productos.existencia, Productos.codigoTipoProducto, 
+			   Productos.codigoProveedor
+        from Productos;
+    end$$
 delimiter ;
 
 -- ----------------------------------------------------------------------------------------
@@ -638,61 +640,56 @@ delimiter ;
 call sp_listarProductos();
 
 -- ----------------------------------------------------------------------------------------
-
 delimiter $$
-
-create procedure sp_buscarProductos(in codeProducto varchar(15))
-begin
-    select * from Productos where codigoProducto = codeProducto;
-end$$
-
+	create procedure sp_buscarProductos(in codPro varchar(45))
+    begin
+	select Productos.codigoProducto, Productos.descripcionProducto, Productos.precioUnitario, Productos.precioDocena,
+		   Productos.precioMayor, Productos.existencia, Productos.codigoTipoProducto, 
+		   Productos.codigoProveedor from Productos 
+    where Productos.codigoProducto = codPro;
+	end$$
 delimiter ;
 
 -- ----------------------------------------------------------------------------------------
 
-call sp_buscarProductos('49');
+call sp_buscarProductos('1');
 
 -- ----------------------------------------------------------------------------------------
 
-Delimiter $$
+delimiter $$
+	create procedure sp_actualizarProductos(in codPro varchar(45), 
+    in desPro varchar(45), 
+    in precioUniPro decimal(10,2), 
+    in precioDocPro decimal(10,2),
+	in precioMaPro decimal(10,2), 
+    in existencia int, 
+    in codTipPro int,
+	in codProvPro int)
+    begin
+		update Productos
+		set
+        Productos.descripcionProducto = desPro, 
+        Productos.precioUnitario = precioUniPro, 
+        Productos.precioDocena = precioDocPro,
+		Productos.precioMayor = precioMaPro, 
+        Productos.existencia = existencia, 
+        Productos.codigoTipoProducto = codTipPro, 
+		Productos.codigoProveedor = codProvPro
+        where 
+        Productos.codigoProducto = codPro;
+    end$$
+delimiter ;
 
-Create procedure sp_actualizarProducto(
-    in codeProducto varchar(15), 
-    in descProducto varchar(45), 
-    in precUnitario decimal(10,2),
-    in precDoce decimal(10,2), 
-    in precMay decimal(10,2), 
-    in existenciaPro int, 
-    in codeTipoProducto int, 
-    in codeProveedor int
-)
-Begin
-    update Productos
-    set
-        descripProducto = descProducto,
-        precioUnitario = precUnitario,
-        precioDocena = precDoce,
-        precioMayor = precMay,
-        existencia = existenciaPro,
-        codigoTipoProducto = codeTipoProducto,
-        codigoProveedor = codeProveedor
-    where
-        codigoProducto = codeProducto;
-end$$
-
-Delimiter ;
 
 call sp_actualizarProducto(50, 'Descripción del producto', 9.00, 12.00, 45.00, 150, 2, 2);
 
 -- ----------------------------------------------------------------------------------------
 
 delimiter $$
-
-create procedure sp_eliminarProductos(in codeProducto varchar(15))
-begin
-    delete from Productos where codigoTipoProducto = codeProducto;
-end$$
-
+	create procedure sp_eliminarProductos (in codPro varchar(45))
+    begin
+		delete from Productos where Productos.codigoProducto = codPro;
+    end$$
 delimiter ;
 
 -- ------------------------------ ----------------------------------------------------------

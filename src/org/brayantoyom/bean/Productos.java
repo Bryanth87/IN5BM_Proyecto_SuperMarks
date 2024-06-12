@@ -1,24 +1,22 @@
 
 package org.brayantoyom.bean;
 
-
 public class Productos {
-    private String codigoProducto;
-    private String descripProducto;
+ private String codigoProducto;
+    private String descripcionProducto;
     private double precioUnitario;
     private double precioDocena;
     private double precioMayor;
     private int existencia;
     private int codigoTipoProducto;
     private int codigoProveedor;
-    
-    public Productos(){
-        
+
+    public Productos() {
     }
 
-    public Productos(String codigoProducto, String descripProducto, double precioUnitario, double precioDocena, double precioMayor, int existencia, int codigoTipoProducto, int codigoProveedor) {
+    public Productos(String codigoProducto, String descripcionProducto, double precioUnitario, double precioDocena, double precioMayor, int existencia, int codigoTipoProducto, int codigoProveedor) {
         this.codigoProducto = codigoProducto;
-        this.descripProducto = descripProducto;
+        this.descripcionProducto = descripcionProducto;
         this.precioUnitario = precioUnitario;
         this.precioDocena = precioDocena;
         this.precioMayor = precioMayor;
@@ -26,7 +24,7 @@ public class Productos {
         this.codigoTipoProducto = codigoTipoProducto;
         this.codigoProveedor = codigoProveedor;
     }
-    
+
     public String getCodigoProducto() {
         return codigoProducto;
     }
@@ -35,12 +33,12 @@ public class Productos {
         this.codigoProducto = codigoProducto;
     }
 
-    public String getDescripProducto() {
-        return descripProducto;
+    public String getDescripcionProducto() {
+        return descripcionProducto;
     }
 
-    public void setDescripProducto(String descripProducto) {
-        this.descripProducto = descripProducto;
+    public void setDescripcionProducto(String descripcionProducto) {
+        this.descripcionProducto = descripcionProducto;
     }
 
     public double getPrecioUnitario() {
@@ -90,11 +88,10 @@ public class Productos {
     public void setCodigoProveedor(int codigoProveedor) {
         this.codigoProveedor = codigoProveedor;
     }
-    
-        @Override
+
+    @Override
     public String toString() {
         return getCodigoProducto();
-        
     }
-    
+
 }
